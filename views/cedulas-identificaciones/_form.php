@@ -167,18 +167,6 @@ use yii\helpers\ArrayHelper;
             <?= $form->field($model, 'calle')->textInput(['maxlength' => true, 'placeholder'=> 'Calle'])->label(false) ?>
         </div>
         <div class="col-md-5">
-            <?= $form->field($model, 'domicilio')->textInput(['maxlength' => true, 'placeholder'=> 'Domicilio'])->label(false) ?>
-        </div>
-        <div class="col-md-2">
-            <?= $form->field($model, 'no_int')->textInput(['maxlength' => true, 'placeholder'=> 'No. Interior'])->label(false) ?>
-        </div>
-        <div class="col-md-2">
-            <?= $form->field($model, 'no_ext')->textInput(['maxlength' => true, 'placeholder'=> 'No. Exterior'])->label(false) ?>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-5">
             <?php
             echo $form->field($model, 'colonia_id')->widget(Select2::classname(), [
                 'data' => ArrayHelper::map(\app\models\Ccolonias::find()->all(), 'id', function($model) {
@@ -191,13 +179,25 @@ use yii\helpers\ArrayHelper;
             ])->label(false);
             ?>
         </div>
+        <div class="col-md-2">
+            <?= $form->field($model, 'no_int')->textInput(['maxlength' => true, 'placeholder'=> 'No. Interior'])->label(false) ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($model, 'no_ext')->textInput(['maxlength' => true, 'placeholder'=> 'No. Exterior'])->label(false) ?>
+        </div>
+    </div>
 
+    <div class="row">
         <div class="col-md-4">
             <?= $form->field($model, 'localidad')->textInput(['maxlength' => true, 'placeholder'=> 'Localidad'])->label(false) ?>
         </div>
         <div class="col-md-3">
             <?= $form->field($model, 'municipio')->textInput(['maxlength' => true, 'placeholder'=> 'Municipio'])->label(false) ?>
         </div>
+        <div class="col-md-5">
+            <?= $form->field($model, 'domicilio')->textInput(['maxlength' => true, 'placeholder'=> 'Referencia del Domicilio'])->label(false) ?>
+        </div>
+
     </div>
 
     <div class="row">
