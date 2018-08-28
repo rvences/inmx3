@@ -166,6 +166,12 @@ use yii\helpers\ArrayHelper;
         <div class="col-md-3">
             <?= $form->field($model, 'calle')->textInput(['maxlength' => true, 'placeholder'=> 'Calle'])->label(false) ?>
         </div>
+        <div class="col-md-2">
+            <?= $form->field($model, 'no_int')->textInput(['maxlength' => true, 'placeholder'=> 'No. Interior'])->label(false) ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($model, 'no_ext')->textInput(['maxlength' => true, 'placeholder'=> 'No. Exterior'])->label(false) ?>
+        </div>
         <div class="col-md-5">
             <?php
             echo $form->field($model, 'colonia_id')->widget(Select2::classname(), [
@@ -178,12 +184,6 @@ use yii\helpers\ArrayHelper;
                 ],
             ])->label(false);
             ?>
-        </div>
-        <div class="col-md-2">
-            <?= $form->field($model, 'no_int')->textInput(['maxlength' => true, 'placeholder'=> 'No. Interior'])->label(false) ?>
-        </div>
-        <div class="col-md-2">
-            <?= $form->field($model, 'no_ext')->textInput(['maxlength' => true, 'placeholder'=> 'No. Exterior'])->label(false) ?>
         </div>
     </div>
 
