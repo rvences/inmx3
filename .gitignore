@@ -31,3 +31,20 @@ tests/_support/_generated
 
 #vagrant folder
 /.vagrant
+/config/params.php
+/config/test.php
+/config/test_db.php
+/config/db.php
+/assets/
+/commands/
+/web/index-test.php
+/LICENSE.md
+/Vagrantfile
+/requirements.php
+/docker-compose.yml
+/README.md
+/codeception.yml
+/.bowerrc
+/yii.bat
+/vagrant/
+/tests/
