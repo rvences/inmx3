@@ -35,7 +35,6 @@ tests/_support/_generated
 /config/test.php
 /config/test_db.php
 /config/db.php
-/assets/
 /commands/
 /web/index-test.php
 /LICENSE.md
