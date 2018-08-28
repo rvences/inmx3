@@ -82,6 +82,11 @@ class m180825_013942_catalogo_datos_identificacion extends Migration
                 ['Protección Civil Municipal'],
                 ['Bomberos'],
                 ['Canalizar a Institución'],
+                ['Cruz Roja'],
+                ['Cruz Verde'],
+                ['Cruz Ambar'],
+                ['Tránsito del Estado'],
+                ['Tránsito Municipal'],
             )
         );
 
@@ -118,9 +123,11 @@ class m180825_013942_catalogo_datos_identificacion extends Migration
                 ['SECRETARÍA DE SEGURIDAD PÚBLICA ESTATAL', 'Dirección General del Centro de Evaluación y Control de Confianza'],
                 ['ISSSTE', 'EMERGENCIA'],
                 ['ISSSTE', 'DELEGACIÓN ISSSTE'],
+                /*
                 ['AMBULANCIAS', 'CRUZ ROJA'],
                 ['AMBULANCIAS', 'CRUZ ÁMBAR'],
                 ['AMBULANCIAS', 'CRUZ VERDE'],
+                */
                 ['CRISVER', 'UNIDAD DE GÉNERO CRISVER'],
                 ['CENTROS DE SALUD', 'CENTRO DE ALTA ESPECIALIDAD DR RAFAEL LUCIO (CEM)'],
                 ['CENTROS DE SALUD', 'HOSPITAL REGIONAL DE XALAPA DR LUIS F NACHÓN'],

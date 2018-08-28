@@ -50,28 +50,14 @@ use yii\helpers\ArrayHelper;
     </div>
 
     <div class="row">
-        <div class="col-md-3">
-            <?php
-            echo $form->field($model, 'fecha_ult_incidente')->widget(DatePicker::className(), [
-                'name' => 'fecha_incidente',
-                'value' => date('dd-mm-yyyy', strtotime('+2 days')),
-                'language'=> 'es',
-                'options' => ['placeholder' => 'Ultimo incidente'],
-                'pluginOptions' => [
-                    'format' => 'yyyy-mm-dd',
-                    'todayHighlight' => true,
-                    'autoclose' => true
-                ]
-            ])->label(false);
-            ?>
-        </div>
-        <div class="col-md-3 ">
+
+        <div class="col-md-4 ">
             <?= $form->field($model, 'tel_llamada', [
                 'addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-phone"></i>']
                 ]
             ])->textInput(['maxlength' => true, 'placeholder'=> 'Teléfono', 'autofocus' => 'autofocus', 'tabindex' => '1'])->label(false); ?>
         </div>
-        <div class="col-md-3 ">
+        <div class="col-md-4 ">
             <?php
             echo $form->field($model, 'tipo_llamada_id')->widget(Select2::classname(), [
                 'data' => ArrayHelper::map(\app\models\Ctiposllamadas::find()->all(), 'id', 'tipo_llamada'),
@@ -82,7 +68,7 @@ use yii\helpers\ArrayHelper;
             ])->label(false);
             ?>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <?php
             echo $form->field($model, 'tipificacion_id')->widget(Select2::classname(), [
                 'data' => ArrayHelper::map(\app\models\Ctipificaciones::find()->all(), 'id', 'tipificacion'),
@@ -278,6 +264,24 @@ use yii\helpers\ArrayHelper;
     </div>
 
     <div class="row">
+
+        <div class="col-md-4">
+            <?php
+            echo $form->field($model, 'fecha_ult_incidente')->widget(DatePicker::className(), [
+                'name' => 'fecha_incidente',
+                'value' => date('dd-mm-yyyy', strtotime('+2 days')),
+                'language'=> 'es',
+                'options' => ['placeholder' => 'Ultimo incidente'],
+                'pluginOptions' => [
+                    'format' => 'yyyy-mm-dd',
+                    'todayHighlight' => true,
+                    'autoclose' => true
+                ]
+            ])->label(false);
+            ?>
+        </div>
+
+
         <div class="col-md-4">
             <?php
             echo $form->field($model, 'zona_riesgo_ids')->widget(Select2::classname(), [
@@ -293,7 +297,7 @@ use yii\helpers\ArrayHelper;
             ?>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <?php
             echo $form->field($model, 'horario_riesgo_ids')->widget(Select2::classname(), [
                 'data' => ArrayHelper::map(\app\models\Chorariosderiesgos::find()->all(), 'id', 'horario_riesgo'),
@@ -308,7 +312,10 @@ use yii\helpers\ArrayHelper;
             ?>
         </div>
 
-        <div class="col-md-5">
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
             <?php
             echo $form->field($model, 'tipo_riesgo_ids')->widget(Select2::classname(), [
                 'data' => ArrayHelper::map(\app\models\Ctiposderiesgos::find()->all(), 'id', 'tipo_riesgo'),
@@ -323,10 +330,8 @@ use yii\helpers\ArrayHelper;
             ?>
         </div>
 
-    </div>
 
-    <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <?= $form->field($model, 'lugar_nacimiento')->textInput(['maxlength' => true, 'placeholder'=> 'Lugar de Nacimiento'])->label(false) ?>
         </div>
 
