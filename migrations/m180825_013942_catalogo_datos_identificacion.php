@@ -54,8 +54,21 @@ class m180825_013942_catalogo_datos_identificacion extends Migration
         ], $tableOptions);
         $this->batchInsert('ctipificaciones', array('tipificacion'),
             array(
-                ['Tipo de violencia'],
-                ['Modalidad de Violencia'],
+                ['Violencia Psicologica'],
+                ['Violencia Física'],
+                ['Violencia Económica'],
+                ['Violencia Sexual'],
+                ['Violencia Patrimonial'],
+                ['Violencia Obstétrica'],
+                ['Modalidad Familiar'],
+                ['Modalidad Familiar Equiparada'],
+                ['Modalidad Laboral'],
+                ['Modalidad Institucional'],
+                ['Modalidad Comunitaria'],
+                ['Modalidad Escolar'],
+                ['Modalidad Feminicida'],
+                ['Modalidad De Género'],
+                ['Modalidad Política'],
                 ['Emergencia'],
             )
         );
