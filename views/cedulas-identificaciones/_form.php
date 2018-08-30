@@ -6,6 +6,7 @@ use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
 use yii\helpers\ArrayHelper;
 
+
 /* @var $this yii\web\View */
 /* @var $model app\models\CedulasIdentificaciones */
 /* @var $form yii\widgets\ActiveForm */
@@ -13,20 +14,33 @@ use yii\helpers\ArrayHelper;
 
 ?>
 
+<?php
+
+$JS = <<< JS
+    $('#cedulasidentificaciones-colonia_foranea').hide();
+    $('#cedulasidentificaciones-colonia_nueva').hide();         
+    $(document.body).on("change","#cedulasidentificaciones-colonia_id",function(){                    
+        var val = $('#cedulasidentificaciones-colonia_id').val();
+        if(val == 9999 ) {
+            $('#cedulasidentificaciones-colonia_foranea').hide();
+            $('#cedulasidentificaciones-colonia_nueva').show();
+        }  else  if(val == 9998 ){
+            $('#cedulasidentificaciones-colonia_foranea').show();
+            $('#cedulasidentificaciones-colonia_nueva').hide();
+        } else {
+        $('#cedulasidentificaciones-colonia_foranea').hide();
+            $('#cedulasidentificaciones-colonia_nueva').hide();
+        }
+    });
+JS;
+$this->registerJs($JS, $this::POS_READY);
+
+
+?>
+
 <div class="cedulas-identificaciones-form">
 
-    <?php $form = ActiveForm::begin(
-            /*[
-        'fieldConfig' => [
-            'horizontalCssClasses' => [
-                'label' => 'col-md-4',
-                'wrapper' => 'col-md-8'
-            ]
-        ],
-
-        'type' => ActiveForm::TYPE_HORIZONTAL]
-            */
-            );
+    <?php $form = ActiveForm::begin();
 
     echo $form->errorSummary([$model]);
 
@@ -195,7 +209,9 @@ use yii\helpers\ArrayHelper;
             <?= $form->field($model, 'municipio')->textInput(['maxlength' => true, 'placeholder'=> 'Municipio'])->label(false) ?>
         </div>
         <div class="col-md-5">
-            <?= $form->field($model, 'domicilio')->textInput(['maxlength' => true, 'placeholder'=> 'Referencia del Domicilio'])->label(false) ?>
+            <?= $form->field($model, 'colonia_nueva')->textInput(['maxlength' => true, 'placeholder'=> 'Colonia Nueva'])->label(false) ?>
+            <?= $form->field($model, 'colonia_foranea')->textInput(['maxlength' => true, 'placeholder'=> 'Colonia Foránea'])->label(false) ?>
+
         </div>
 
     </div>
@@ -436,3 +452,5 @@ use yii\helpers\ArrayHelper;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+

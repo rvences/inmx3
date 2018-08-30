@@ -237,6 +237,11 @@ class m180825_013942_catalogo_datos_identificacion extends Migration
 
         $this->execute(file_get_contents('migrations/ccolonias.sql'));
 
+        $this->batchInsert('ccolonias', array('id', 'colonia'), array(
+            ['9999', 'NO EXISTE EN CATALOGO DE COLONIAS DE XALAPA'],
+            ['9998', 'FORÁNEO DE XALAPA'],
+        ));
+
         ## CATALOGO DE ESTADO - ENTIDAD FEDERATIVA
         $this->createTable('{{%centidadesfederativas}}', [
             'id' => $this->primaryKey(),
@@ -460,6 +465,310 @@ class m180825_013942_catalogo_datos_identificacion extends Migration
             ['Conocida(o)'],
             ['Folletería'],
         ));
+
+        ## CATALOGO DE MADRE SOLTERA
+        $this->createTable('cmadres_solteras_apartir_de', [
+            'id' => $this->primaryKey(),
+            'apartir_de' => $this->string(20)->notNull(),
+        ], $tableOptions);
+        $this->batchInsert('cmadres_solteras_apartir_de', array('apartir_de'), array(
+            ['Embarazo'],
+            ['Adolescencia'],
+            ['Divorcio'],
+            ['Viudez'],
+            ['Otro'],
+        ));
+
+        ## CATALOGO DE MUERTE EMBARAZO
+        $this->createTable('ccausas_muertes_embarazos', [
+            'id' => $this->primaryKey(),
+            'causa_muerte' => $this->string(20)->notNull(),
+        ], $tableOptions);
+        $this->batchInsert('ccausas_muertes_embarazos', array('causa_muerte'), array(
+            ['Violencia'],
+            ['Violencia de género'],
+            ['Enfermedad'],
+            ['Accidente'],
+            ['Otro'],
+        ));
+
+        ##CATALOGO DE ESTADOS CIVILES
+        $this->createTable('{{%cestados_civiles}}', [
+            'id' => $this->primaryKey(),
+            'estado_civil' => $this->string(40)->notNull() . " COMMENT 'Estado Civil' ",
+
+        ], $tableOptions
+        );
+
+        $this->batchInsert('cestados_civiles',
+            array('estado_civil'),
+            array(
+                ['Casada'],
+                ['Concubina ( Unión Libre)'],
+                ['Divorciada'],
+                ['Soltera'],
+                ['Viuda'],
+                ['Amasiato'],
+                ['Separada'],
+                ['Se Desconoce'],
+                ['Noviazgo'],
+            )
+        );
+
+        ##CATALOGO DE CONVIVENCIA
+        $this->createTable('{{%cconvivencias}}', [
+            'id' => $this->primaryKey(),
+            'convivencia' => $this->string(40)->notNull() . " COMMENT 'Convivencias' ",
+
+        ], $tableOptions
+        );
+        $this->batchInsert('cconvivencias',
+            array('convivencia'),
+            array(
+                ['Sola'],
+                ['Hijas(os)'],
+                ['Amigas(os)'],
+                ['Hermana(o)'],
+                ['Padres'],
+                ['Madre'],
+                ['Padre'],
+                ['Familia extensa'],
+                ['Otros'],
+            )
+        );
+
+        ##CATALOGO TIPOS DE VIVIENDAS
+        $this->createTable('ctipos_viviendas', [
+            'id' => $this->primaryKey(),
+            'tipo_vivienda' => $this->string(100)
+        ], $tableOptions);
+        $this->batchInsert('ctipos_viviendas',
+            array('tipo_vivienda'),
+            array(
+                ['Prestada'],
+                ['Rentada'],
+                ['Propia'],
+                ['Pensión'],
+                ['De mi pareja'],
+                ['De un familiar'],
+                ['No tengo']
+
+            ));
+
+        #CATALOGO DE SERVICIOS BASICOS
+        $this->createTable('cservicios_basicos', [
+            'id' => $this->primaryKey(),
+            'servicio_basico' => $this->string(100)
+        ], $tableOptions);
+
+        $this->batchInsert('cservicios_basicos',
+            array('servicio_basico'),
+            array(
+                ['Agua potable'],
+                ['Drenaje'],
+                ['Recolección de basura'],
+                ['Alumbrado público'],
+                ['Energía eléctrica'],
+                ['Teléfonos Públicos'],
+            ));
+
+
+        ##CATALOGO DE NIVELES DE ESTUDIO
+        $this->createTable('cniveles_estudios', [
+            'id' => $this->primaryKey(),
+            'nivel_estudio' => $this->string(100)
+        ], $tableOptions);
+
+        $this->batchInsert('cniveles_estudios',
+            array('nivel_estudio'),
+            array(
+                ['Primaria'],
+                ['Secundaria'],
+                ['Preparatoria / Bachillerato'],
+                ['Preescolar o Kinder'],
+                ['Carrera Técnica o Comercial'],
+                ['Licenciatura'],
+                ['Posgrado'],
+                ['Maestria'],
+                ['Doctorado'],
+                ['Analfabeta'],
+                ['Sabe leer - escribir']
+            ));
+
+
+        ## CATALOGO ESTADO DE ESTUDIOS
+        $this->createTable('cstatus_estudios', [
+            'id' => $this->primaryKey(),
+            'status_estudio' => $this->string(100)
+        ], $tableOptions);
+
+        $this->batchInsert('cstatus_estudios',
+            array('status_estudio'),
+            array(
+                ['Terminado'],
+                ['Inconcluso']
+            ));
+
+        ## CATALOGO DE OCUPACIONES
+        $this->createTable('cocupaciones', [
+            'id' => $this->primaryKey(),
+            'ocupacion' => $this->string(100)
+        ], $tableOptions);
+
+        $this->batchInsert('cocupaciones',
+            array('ocupacion'),
+            array(
+                ['Agricultura'],
+                ['Explotación Forestal'],
+                ['Ganadería'],
+                ['Pesca'],
+                ['Construcción'],
+                ['Electricidad, Gas y Agua'],
+                ['Industria Manufacturera'],
+                ['Mineria'],
+                ['Comercio'],
+                ['Comunicaciones'],
+                ['Servicios'],
+                ['Transporte'],
+                ['Labores del hogar'],
+                ['Empleado(a)'],
+                ['Estudia'],
+                ['Empleada del hogar'],
+                ['Cuidado de hijas(os)'],
+                ['Cuidado de nietas(os)'],
+                ['Cuidado de enfermas(os)']
+
+
+            ));
+
+        ##CATALOGO DE FUENTES DE INGRESOS
+        $this->createTable('cfuentes_ingresos', [
+            'id' => $this->primaryKey(),
+            'fuente_ingresos' => $this->string(100)
+        ], $tableOptions);
+
+        $this->batchInsert('cfuentes_ingresos',
+            array('fuente_ingresos'),
+            array(
+                ['Autoconsumo'],
+                ['Pago en especie'],
+                ['Jubilada(o)'],
+                ['Pensionada(o)'],
+                ['Beca'],
+                ['Empleada(o)'],
+                ['Comercio informal'],
+                ['Comercio formal'],
+                ['Autoempleada']
+            ));
+
+        ##CATALOGO DE PROGRAMAS SOCIALES
+        $this->createTable('cprogramassociales', [
+            'id' => $this->primaryKey(),
+            'programa_social' => $this->string(100)
+        ], $tableOptions);
+
+        $this->batchInsert('cprogramassociales',
+            array('programa_social'),
+            array(
+                ['Prospera ( Programa de Inclusión Social )'],
+                ['Seguro de Vida para Jefas de Familia'],
+                ['Programa de Apoyo Alimentario ( PAL )'],
+                ['Pensión para Adultos Mayores'],
+                ['Estancias Infantiles'],
+                ['Programa de Abasto Rural ( DICONSA )'],
+                ['Abasto Social de Leche ( LICONSA )'],
+                ['Personas Adultas Mayores'],
+                ['Programa de Empleo Temporal'],
+                ['Programa de Atención a Jornaleros Agrícolas'],
+                ['3x1 Para migrantes'],
+                ['Fomento de las Artesanías'],
+                ['Desarrollo de Zonas Prioritarias'],
+                ['Opciones Productivas'],
+                ['Programa de Conversión Social'],
+                ['Seguro Popular'],
+                ['Educación para Adultos']
+            ));
+
+        ## CATALOGO DE SERVICIOS MEDICOS
+        $this->createTable('cserviciosmedicos', [
+            'id' => $this->primaryKey(),
+            'servicio_medico' => $this->string(100)
+        ], $tableOptions);
+
+        $this->batchInsert('cserviciosmedicos',
+            array('servicio_medico'),
+            array(
+                ['IMSS'],
+                ['IMSS Oportunidades'],
+                ['ISSSTE'],
+                ['PEMEX'],
+                ['Secretaria de Salud'],
+                ['SEDENA'],
+                ['Seguro Popular'],
+                ['Seguro Privado'],
+                ['SEMAR'],
+                ['Medicina Tradicional'],
+                ['Casa de Salud']
+            ));
+
+        ## CATALOGO DE ENFERMEDADES
+        $this->createTable('cenfermedades', [
+            'id' => $this->primaryKey(),
+            'enfermedad' => $this->string(100)
+        ], $tableOptions);
+
+        $this->batchInsert('cenfermedades',
+            array('enfermedad'),
+            array(
+                ['Artritis'],
+                ['Cancer'],
+                ['Asma'],
+                ['Diabetes'],
+                ['Enfermedades Cardiovasculares'],
+                ['Enfermedades Renales'],
+                ['Epilepsia'],
+                ['Gastritis'],
+                ['Gota'],
+                ['Hepatitis'],
+                ['Hipertensión'],
+                ['ITS'],
+                ['SIDA'],
+                ['Trastorno Psiquiátrico'],
+                ['Desnutrición'],
+                ['Cancer de Mama'],
+                ['Cancer Cervicouterino'],
+                ['Lucemia']
+            ));
+
+        ## CATALOGO DE AUTOCUIDADO
+        $this->createTable('cautocuidados', [
+            'id' => $this->primaryKey(),
+            'autocuidado' => $this->string(100)
+        ], $tableOptions);
+
+        $this->batchInsert('cautocuidados',
+            array('autocuidado'),
+            array(
+                ['Sexual y reproductiva'],
+                ['Preventiva'],
+                ['Desarrollo humano'],
+            ));
+
+        ## CATALOGO DE DISCAPACIDADES
+        $this->createTable('cdiscapacidades', [
+            'id' => $this->primaryKey(),
+            'discapacidad' => $this->string(100)
+        ], $tableOptions);
+
+        $this->batchInsert('cdiscapacidades',
+            array('discapacidad'),
+            array(
+                ['Auditiva'],
+                ['Cognitiva'],
+                ['Lenguaje'],
+                ['Motriz'],
+                ['Visual'],
+            ));
 
 
     }

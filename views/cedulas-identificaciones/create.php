@@ -10,6 +10,10 @@ $this->title = 'Nueva Cedulas Identificaciones';
 $this->params['breadcrumbs'][] = ['label' => 'Cedulas Identificaciones', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+
+
+
 <div class="cedulas-identificaciones-create">
 
     <?= $this->render('_form', [

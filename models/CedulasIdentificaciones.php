@@ -25,10 +25,11 @@ use Yii;
  * @property string $apaterno
  * @property string $amaterno
  * @property string $calle
- * @property string $domicilio
  * @property string $no_int
  * @property string $no_ext
  * @property int $colonia_id
+ * @property string $colonia_nueva
+ * @property string $colonia_foranea
  * @property string $localidad
  * @property string $municipio
  * @property int $entidad_id
@@ -96,7 +97,7 @@ class CedulasIdentificaciones extends \yii\db\ActiveRecord
             [['hora_inicio', 'hora_termino'], 'safe'],
             [['situacion_desencadenante', 'observaciones'], 'string'],
             [['tel_llamada', 'tel_emergencia1', 'tel_emergencia2', 'tel_tutela'], 'string', 'max' => 10],
-            [['tipoasesoria_ids', 'nombre', 'apaterno', 'amaterno', 'calle', 'domicilio', 'localidad', 'municipio', 'zona_riesgo_ids', 'horario_riesgo_ids', 'tipo_riesgo_ids', 'lugar_nacimiento', 'contacto_emergencia1', 'contacto_emergencia2', 'nombre_tutela', 'direccion_tutela'], 'string', 'max' => 100],
+            [['tipoasesoria_ids', 'nombre', 'apaterno', 'amaterno', 'calle', 'colonia_nueva', 'colonia_foranea', 'localidad', 'municipio', 'zona_riesgo_ids', 'horario_riesgo_ids', 'tipo_riesgo_ids', 'lugar_nacimiento', 'contacto_emergencia1', 'contacto_emergencia2', 'nombre_tutela', 'direccion_tutela'], 'string', 'max' => 100],
             [['no_int', 'no_ext'], 'string', 'max' => 50],
             [['violencia_pareja_anterior', 'menor_18'], 'string', 'max' => 1],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
@@ -143,10 +144,11 @@ class CedulasIdentificaciones extends \yii\db\ActiveRecord
             'apaterno' => 'Apaterno',
             'amaterno' => 'Amaterno',
             'calle' => 'Calle',
-            'domicilio' => 'Domicilio',
             'no_int' => 'No Int',
             'no_ext' => 'No Ext',
             'colonia_id' => 'Colonia ID',
+            'colonia_nueva' => 'Colonia Nueva',
+            'colonia_foranea' => 'Colonia Foranea',
             'localidad' => 'Localidad',
             'municipio' => 'Municipio',
             'entidad_id' => 'Entidad ID',
