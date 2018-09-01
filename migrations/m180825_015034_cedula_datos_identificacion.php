@@ -44,9 +44,9 @@ class m180825_015034_cedula_datos_identificacion extends Migration
             'hora_termino' => $this->time(), // CP
             'fecha_ult_incidente' => $this->integer()->notNull(),
             'tipo_llamada_id' => $this->integer(), // CT
-            'tipificacion_id' => $this->integer(), // CT
+            'tipificacion_ids' => $this->string(100), // CT
             'tipo_emergencia_id' => $this->integer(), // CT
-            'coorporacion_id' => $this->integer(), // CT
+            'coorporacion_ids' => $this->string(100), // CT
             'institucion_id' => $this->integer(), // CT
             'tipoasesoria_ids' => $this->string(100),
             'sexo_id' => $this->integer(), // CT
@@ -90,9 +90,7 @@ class m180825_015034_cedula_datos_identificacion extends Migration
 
         $this->addForeignKey('KF_cedulaidentificacion_cedulas', 'cedulas_identificaciones', 'cedula_id', 'cedulas', 'id', 'RESTRICT', 'CASCADE');
         $this->addForeignKey('FK_cedulaidentificacion_ctiposllamadas', 'cedulas_identificaciones', 'tipo_llamada_id', 'ctiposllamadas', 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('FK_cedulaidentificacion_ctipificaciones', 'cedulas_identificaciones', 'tipificacion_id', 'ctipificaciones', 'id', 'CASCADE', 'CASCADE');
         $this->addForeignKey('FK_cedulaidentificacion_ctiposemergencias', 'cedulas_identificaciones', 'tipo_emergencia_id', 'ctiposemergencias', 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('FK_cedulaidentificacion_ccoorporaciones', 'cedulas_identificaciones', 'coorporacion_id', 'ccoorporaciones', 'id', 'CASCADE', 'CASCADE');
         $this->addForeignKey('FK_cedulaidentificacion_cinstituciones', 'cedulas_identificaciones', 'institucion_id', 'cinstituciones', 'id', 'CASCADE', 'CASCADE');
         $this->addForeignKey('FK_cedulaidentificacion_csexos', 'cedulas_identificaciones', 'sexo_id', 'csexos', 'id', 'CASCADE', 'CASCADE');
         $this->addForeignKey('FK_cedulaidentificacion_ccolonias', 'cedulas_identificaciones', 'colonia_id', 'ccolonias', 'id', 'RESTRICT', 'CASCADE');

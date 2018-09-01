@@ -9,8 +9,6 @@ use Yii;
  *
  * @property int $id
  * @property string $tipificacion
- *
- * @property CedulasIdentificaciones[] $cedulasIdentificaciones
  */
 class Ctipificaciones extends \yii\db\ActiveRecord
 {
@@ -42,13 +40,5 @@ class Ctipificaciones extends \yii\db\ActiveRecord
             'id' => 'ID',
             'tipificacion' => 'Tipificacion',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCedulasIdentificaciones()
-    {
-        return $this->hasMany(CedulasIdentificaciones::className(), ['tipificacion_id' => 'id']);
     }
 }

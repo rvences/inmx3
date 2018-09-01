@@ -15,9 +15,9 @@ use Yii;
  * @property string $hora_termino
  * @property int $fecha_ult_incidente
  * @property int $tipo_llamada_id
- * @property int $tipificacion_id
+ * @property string $tipificacion_ids
  * @property int $tipo_emergencia_id
- * @property int $coorporacion_id
+ * @property string $coorporacion_ids
  * @property int $institucion_id
  * @property string $tipoasesoria_ids
  * @property int $sexo_id
@@ -61,7 +61,6 @@ use Yii;
  * @property User $updatedBy
  * @property Ccolonias $colonia
  * @property Ccongregaciones $congregacion
- * @property Ccoorporaciones $coorporacion
  * @property Centeroservicios $enteroServicio
  * @property Centidadesfederativas $entidad
  * @property Cinstituciones $institucion
@@ -69,7 +68,6 @@ use Yii;
  * @property Crelacioparentezco $relacionParentezco
  * @property Creligiones $religion
  * @property Csexos $sexo
- * @property Ctipificaciones $tipificacion
  * @property Ctiposemergencias $tipoEmergencia
  * @property Ctiposllamadas $tipoLlamada
  * @property User $createdBy
@@ -92,18 +90,17 @@ class CedulasIdentificaciones extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cedula_id', 'created_at', 'fecha_ult_incidente', 'tipo_llamada_id', 'tipificacion_id', 'tipo_emergencia_id', 'coorporacion_id', 'institucion_id', 'sexo_id', 'colonia_id', 'entidad_id', 'zona_id', 'congregacion_id', 'religion_id', 'nacionalidad_id', 'created_by', 'relacion_parentezco_id', 'entero_servicio_id', 'updated_at', 'updated_by'], 'integer'],
+            [['cedula_id', 'created_at', 'fecha_ult_incidente', 'tipo_llamada_id', 'tipo_emergencia_id', 'institucion_id', 'sexo_id', 'colonia_id', 'entidad_id', 'zona_id', 'congregacion_id', 'religion_id', 'nacionalidad_id', 'created_by', 'relacion_parentezco_id', 'entero_servicio_id', 'updated_at', 'updated_by'], 'integer'],
             [['created_at', 'fecha_ult_incidente', 'created_by', 'updated_at', 'updated_by'], 'required'],
             [['hora_inicio', 'hora_termino'], 'safe'],
             [['situacion_desencadenante', 'observaciones'], 'string'],
             [['tel_llamada', 'tel_emergencia1', 'tel_emergencia2', 'tel_tutela'], 'string', 'max' => 10],
-            [['tipoasesoria_ids', 'nombre', 'apaterno', 'amaterno', 'calle', 'colonia_nueva', 'colonia_foranea', 'localidad', 'municipio', 'zona_riesgo_ids', 'horario_riesgo_ids', 'tipo_riesgo_ids', 'lugar_nacimiento', 'contacto_emergencia1', 'contacto_emergencia2', 'nombre_tutela', 'direccion_tutela'], 'string', 'max' => 100],
+            [['tipificacion_ids', 'coorporacion_ids', 'tipoasesoria_ids', 'nombre', 'apaterno', 'amaterno', 'calle', 'colonia_nueva', 'colonia_foranea', 'localidad', 'municipio', 'zona_riesgo_ids', 'horario_riesgo_ids', 'tipo_riesgo_ids', 'lugar_nacimiento', 'contacto_emergencia1', 'contacto_emergencia2', 'nombre_tutela', 'direccion_tutela'], 'string', 'max' => 100],
             [['no_int', 'no_ext'], 'string', 'max' => 50],
             [['violencia_pareja_anterior', 'menor_18'], 'string', 'max' => 1],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
             [['colonia_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ccolonias::className(), 'targetAttribute' => ['colonia_id' => 'id']],
             [['congregacion_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ccongregaciones::className(), 'targetAttribute' => ['congregacion_id' => 'id']],
-            [['coorporacion_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ccoorporaciones::className(), 'targetAttribute' => ['coorporacion_id' => 'id']],
             [['entero_servicio_id'], 'exist', 'skipOnError' => true, 'targetClass' => Centeroservicios::className(), 'targetAttribute' => ['entero_servicio_id' => 'id']],
             [['entidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Centidadesfederativas::className(), 'targetAttribute' => ['entidad_id' => 'id']],
             [['institucion_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cinstituciones::className(), 'targetAttribute' => ['institucion_id' => 'id']],
@@ -111,7 +108,6 @@ class CedulasIdentificaciones extends \yii\db\ActiveRecord
             [['relacion_parentezco_id'], 'exist', 'skipOnError' => true, 'targetClass' => Crelacioparentezco::className(), 'targetAttribute' => ['relacion_parentezco_id' => 'id']],
             [['religion_id'], 'exist', 'skipOnError' => true, 'targetClass' => Creligiones::className(), 'targetAttribute' => ['religion_id' => 'id']],
             [['sexo_id'], 'exist', 'skipOnError' => true, 'targetClass' => Csexos::className(), 'targetAttribute' => ['sexo_id' => 'id']],
-            [['tipificacion_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ctipificaciones::className(), 'targetAttribute' => ['tipificacion_id' => 'id']],
             [['tipo_emergencia_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ctiposemergencias::className(), 'targetAttribute' => ['tipo_emergencia_id' => 'id']],
             [['tipo_llamada_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ctiposllamadas::className(), 'targetAttribute' => ['tipo_llamada_id' => 'id']],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
@@ -134,9 +130,9 @@ class CedulasIdentificaciones extends \yii\db\ActiveRecord
             'hora_termino' => 'Hora Termino',
             'fecha_ult_incidente' => 'Fecha Ult Incidente',
             'tipo_llamada_id' => 'Tipo Llamada ID',
-            'tipificacion_id' => 'Tipificacion ID',
+            'tipificacion_ids' => 'Tipificacion Ids',
             'tipo_emergencia_id' => 'Tipo Emergencia ID',
-            'coorporacion_id' => 'Coorporacion ID',
+            'coorporacion_ids' => 'Coorporacion Ids',
             'institucion_id' => 'Institucion ID',
             'tipoasesoria_ids' => 'Tipoasesoria Ids',
             'sexo_id' => 'Sexo ID',
@@ -206,14 +202,6 @@ class CedulasIdentificaciones extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCoorporacion()
-    {
-        return $this->hasOne(Ccoorporaciones::className(), ['id' => 'coorporacion_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getEnteroServicio()
     {
         return $this->hasOne(Centeroservicios::className(), ['id' => 'entero_servicio_id']);
@@ -265,14 +253,6 @@ class CedulasIdentificaciones extends \yii\db\ActiveRecord
     public function getSexo()
     {
         return $this->hasOne(Csexos::className(), ['id' => 'sexo_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTipificacion()
-    {
-        return $this->hasOne(Ctipificaciones::className(), ['id' => 'tipificacion_id']);
     }
 
     /**

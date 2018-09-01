@@ -84,11 +84,16 @@ $this->registerJs($JS, $this::POS_READY);
         </div>
         <div class="col-md-4">
             <?php
-            echo $form->field($model, 'tipificacion_id')->widget(Select2::classname(), [
+            echo $form->field($model, 'tipificacion_ids')->widget(Select2::classname(), [
                 'data' => ArrayHelper::map(\app\models\Ctipificaciones::find()->all(), 'id', 'tipificacion'),
-                'options' => ['placeholder' => 'Tipificación ...', 'tabindex' => '3'],
+                'options' => [
+                    'placeholder' => 'Seleccione las tipificaciones ...',
+                    'multiple' => true,
+                    'tabindex' => '3'
+                ],
                 'pluginOptions' => [
-                    'allowClear' => true,
+
+                    'tags' => true
                 ],
             ])->label(false);
             ?>
@@ -110,11 +115,15 @@ $this->registerJs($JS, $this::POS_READY);
 
         <div class="col-md-3">
             <?php
-            echo $form->field($model, 'coorporacion_id')->widget(Select2::classname(), [
-                'data' => ArrayHelper::map(\app\models\Ccoorporaciones::find()->all(), 'id', 'coorporacion'),
-                'options' => ['placeholder' => 'Coorporación ...'],
+            echo $form->field($model, 'coorporacion_ids')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(\app\models\Ctipificaciones::find()->all(), 'id', 'tipificacion'),
+                'options' => [
+                    'placeholder' => 'Seleccione las coorporaciones ...',
+                    'multiple' => true,
+                ],
                 'pluginOptions' => [
-                    'allowClear' => true
+
+                    'tags' => true
                 ],
             ])->label(false);
             ?>

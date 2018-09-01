@@ -5,19 +5,19 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "ccoorporaciones".
+ * This is the model class for table "cmodalidades_violencias".
  *
  * @property int $id
- * @property string $coorporacion
+ * @property string $modalidad_violencia Modalidad Violenta
  */
-class Ccoorporaciones extends \yii\db\ActiveRecord
+class CmodalidadesViolencias extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'ccoorporaciones';
+        return 'cmodalidades_violencias';
     }
 
     /**
@@ -26,8 +26,8 @@ class Ccoorporaciones extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['coorporacion'], 'required'],
-            [['coorporacion'], 'string', 'max' => 40],
+            [['modalidad_violencia'], 'required'],
+            [['modalidad_violencia'], 'string', 'max' => 30],
         ];
     }
 
@@ -38,7 +38,7 @@ class Ccoorporaciones extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'coorporacion' => 'Coorporacion',
+            'modalidad_violencia' => 'Modalidad Violencia',
         ];
     }
 }

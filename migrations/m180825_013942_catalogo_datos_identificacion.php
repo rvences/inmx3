@@ -770,6 +770,229 @@ class m180825_013942_catalogo_datos_identificacion extends Migration
                 ['Visual'],
             ));
 
+        ## CATALOGO TIPO VIOLENCIA GENERO
+        $this->createTable('{{%ctipos_violencias}}', [
+            'id' => $this->primaryKey(),
+            'tipo_violencia' => $this->string(20)->notNull() . " COMMENT 'Tipos de Violencia' ",
+
+        ], $tableOptions
+        );
+
+        $this->batchInsert('ctipos_violencias',
+            array('tipo_violencia'),
+            array(
+                ['Psicologica'],
+                ['Física'],
+                ['Económica'],
+                ['Sexual'],
+                ['Patrimonial'],
+                ['Obstétrica']
+            ));
+
+        $this->createTable('{{%cmodalidades_violencias}}', [
+            'id' => $this->primaryKey(),
+            'modalidad_violencia' => $this->string(30)->notNull() . " COMMENT 'Modalidad Violenta' ",
+
+        ], $tableOptions);
+
+        $this->batchInsert('cmodalidades_violencias',
+            array('modalidad_violencia'),
+            array(
+                ['Familiar'],
+                ['Familiar Equiparada'],
+                ['Laboral'],
+                ['Institucional'],
+                ['Comunitaria'],
+                ['Escolar'],
+                ['Feminicida'],
+                ['De Género'],
+                ['Política'],
+            ));
+
+        $this->createTable('{{%clugares_violencias}}', [
+            'id' => $this->primaryKey(),
+            'lugar_violencia' => $this->string(45)->notNull() . " COMMENT 'Lugar de Violencia' ",
+
+        ], $tableOptions);
+
+        $this->batchInsert('clugares_violencias',
+            array('lugar_violencia'),
+            array(
+                ['Espacio particular'],
+                ['Espacio público'],
+                ['Transporte privado'],
+                ['Transporte urbano'],
+                ['Transporte público'],
+                ['Ninguno'],
+            ));
+
+        $this->createTable('{{%csintomatologias_emocionales}}', [
+            'id' => $this->primaryKey(),
+            'sintomatologia_emocional' => $this->string(40)->notNull() . " COMMENT 'Sintomatología Emocional' ",
+
+        ], $tableOptions
+        );
+
+        $this->batchInsert('csintomatologias_emocionales',
+            array('sintomatologia_emocional'),
+            array(
+                ['Baja Autoestima'],
+                ['Ansiedad'],
+                ['Estrés'],
+                ['Depresión'],
+                ['Trastorno del Sueño'],
+                ['Dependencia Emocional'],
+                ['Afectación Emocional'],
+                ['Miedo'],
+                ['Trastorno de Alimentación'],
+                ['Sentimientos de Indefinición'],
+                ['Persecución'],
+                ['Sumisión'],
+                ['Falta de Habilidades Sociales'],
+                ['Somatizaciones'],
+                ['Perplejidad'],
+                ['Bloqueo Cognitivo'],
+                ['Descontrol'],
+                ['Verguenza'],
+                ['Agotamiento Psíquico'],
+                ['Sentimiento de Culpa'],
+            )
+        );
+
+        $this->createTable('{{%csintomatologias_fisicas}}', [
+            'id' => $this->primaryKey(),
+            'sintomatologia_fisica' => $this->string(40)->notNull() . " COMMENT 'Sintomatología Física' ",
+
+        ], $tableOptions
+        );
+
+        $this->batchInsert('csintomatologias_fisicas',
+            array('sintomatologia_fisica'),
+            array(
+                ['Cefalea'],
+                ['Dolor Crónico en General'],
+                ['Cervicalgia'],
+                ['Mareo'],
+                ['Molestias Gastrointestinales'],
+                ['Molestias Pélvicas'],
+            )
+        );
+
+        $this->createTable('{{%ccreencias}}', [
+            'id' => $this->primaryKey(),
+            'creencia' => $this->string(50)->notNull() . " COMMENT 'Creencia' ",
+
+        ], $tableOptions
+        );
+
+        $this->batchInsert('ccreencias',
+            array('creencia'),
+            array(
+                ['Justificación de agresiones'],
+                ['Creencia real de lo que dice el otro'],
+                ['Creencias tradicionales roles de género'],
+                ['Resignación'],
+                ['Fatalismo'],
+                ['Voluntad poco firme de superación'],
+            )
+        );
+
+        $this->createTable('{{%cfactores_psicosociales}}', [
+            'id' => $this->primaryKey(),
+            'factor_psicosocial' => $this->string(40)->notNull() . " COMMENT 'Factor Psicosocial' ",
+
+        ], $tableOptions
+        );
+
+        $this->batchInsert('cfactores_psicosociales',
+            array('factor_psicosocial'),
+            array(
+                ['Hijos'],
+                ['Su propia familia no la apoya'],
+                ['No trabaja'],
+                ['No tiene un lugar dode vivir'],
+                ['Revictimización'],
+                ['Tratamiento psiquiátrico'],
+                ['Otro'],
+            )
+        );
+
+        $this->createTable('{{%crelaciones_parejas}}', [
+            'id' => $this->primaryKey(),
+            'relacion_pareja' => $this->string(50)->notNull() . " COMMENT 'Relación de Pareja' ",
+
+        ], $tableOptions
+        );
+
+        $this->batchInsert('crelaciones_parejas',
+            array('relacion_pareja'),
+            array(
+                ['Roles de pareja desiguales'],
+                ['Ambivalencia afectiva en el agresor'],
+                ['Falta de libertad'],
+                ['Autonomía'],
+                ['Ciclo de la violencia'],
+                ['Tiempo de convivencia'],
+                ['Agresiones previas a la denuncia'],
+                ['Adaptación psicológica'],
+
+            )
+        );
+
+        $this->createTable('{{%crelatos}}', [
+            'id' => $this->primaryKey(),
+            'relato' => $this->string(50)->notNull() . " COMMENT 'Relato' ",
+
+        ], $tableOptions
+        );
+
+        $this->batchInsert('crelatos',
+            array('relato'),
+            array(
+                ['Credibilidad del relato'],
+                ['Coherente'],
+                ['Con afectación emocional'],
+                ['Con lagunas'],
+                ['Discurso sobre la relación de pareja'],
+                ['Resistencia a evocar recuerdos negativos'],
+                ['Riqueza de detalles'],
+            )
+        );
+
+        $this->createTable('{{%crelaciones_sociales}}', [
+            'id' => $this->primaryKey(),
+            'relacion_social' => $this->string(30)->notNull() . " COMMENT 'Relación Social' ",
+
+        ], $tableOptions
+        );
+
+        $this->batchInsert('crelaciones_sociales',
+            array('relacion_social'),
+            array(
+                ['Aislamiento'],
+                ['Desadaptación Social'],
+                ['Desadaptación Laboral'],
+                ['Círculo relacional'],
+            )
+        );
+
+        $this->createTable('{{%ctipos_demandas}}', [
+            'id' => $this->primaryKey(),
+            'tipo_demanda' => $this->string(20)->notNull() . " COMMENT 'Tipo Demanda' ",
+
+        ], $tableOptions
+        );
+
+        $this->batchInsert('ctipos_demandas',
+            array('tipo_demanda'),
+            array(
+                ['Penal'],
+                ['Civil'],
+                ['Laboral'],
+                ['Mercantil'],
+                ['Otra']
+            )
+        );
 
     }
 
