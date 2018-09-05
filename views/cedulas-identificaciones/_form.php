@@ -118,7 +118,7 @@ $this->registerJs($JS, $this::POS_READY);
             echo $form->field($model, 'coorporacion_ids')->widget(Select2::classname(), [
                 'data' => ArrayHelper::map(\app\models\Ccoorporaciones::find()->all(), 'id', 'coorporacion'),
                 'options' => [
-                    'placeholder' => 'Seleccione las coorporaciones ...',
+                    'placeholder' => 'Seleccione las corporaciones ...',
                     'multiple' => true,
                 ],
                 'pluginOptions' => [
