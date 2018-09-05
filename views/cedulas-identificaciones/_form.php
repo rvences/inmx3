@@ -116,7 +116,7 @@ $this->registerJs($JS, $this::POS_READY);
         <div class="col-md-3">
             <?php
             echo $form->field($model, 'coorporacion_ids')->widget(Select2::classname(), [
-                'data' => ArrayHelper::map(\app\models\Ctipificaciones::find()->all(), 'id', 'tipificacion'),
+                'data' => ArrayHelper::map(\app\models\Ccoorporaciones::find()->all(), 'id', 'coorporacion'),
                 'options' => [
                     'placeholder' => 'Seleccione las coorporaciones ...',
                     'multiple' => true,
