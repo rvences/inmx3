@@ -18,8 +18,8 @@ class CedulasIdentificacionesSearch extends CedulasIdentificaciones
     public function rules()
     {
         return [
-            [['id', 'cedula_id', 'created_at', 'fecha_ult_incidente', 'tipo_llamada_id', 'tipificacion_id', 'tipo_emergencia_id', 'coorporacion_id', 'institucion_id', 'sexo_id', 'colonia_id', 'entidad_id', 'congregacion_id', 'religion_id', 'nacionalidad_id', 'created_by', 'relacion_parentezco_id', 'entero_servicio_id', 'updated_at', 'updated_by'], 'integer'],
-            [['tel_llamada', 'hora_inicio', 'hora_termino', 'tipoasesoria_ids', 'nombre', 'apaterno', 'amaterno', 'calle', 'domicilio', 'no_int', 'no_ext', 'localidad', 'municipio', 'zona', 'zona_riesgo_ids', 'horario_riesgo_ids', 'tipo_riesgo_ids', 'lugar_nacimiento', 'violencia_pareja_anterior', 'contacto_emergencia1', 'tel_emergencia1', 'contacto_emergencia2', 'tel_emergencia2', 'situacion_desencadenante', 'menor_18', 'nombre_tutela', 'tel_tutela', 'direccion_tutela', 'observaciones'], 'safe'],
+            [['id', 'cedula_id', 'created_at', 'fecha_ult_incidente', 'tipo_llamada_id', 'tipo_emergencia_id', 'institucion_id', 'sexo_id', 'colonia_id', 'entidad_id', 'zona_id', 'congregacion_id', 'religion_id', 'nacionalidad_id', 'nivel_riesgo_id', 'created_by', 'relacion_parentezco_id', 'updated_at', 'updated_by'], 'integer'],
+            [['tel_llamada', 'hora_inicio', 'hora_termino', 'tipificacion_ids', 'coorporacion_ids', 'tipoasesoria_ids', 'nombre', 'apaterno', 'amaterno', 'calle', 'no_int', 'no_ext', 'colonia_nueva', 'colonia_foranea', 'localidad', 'municipio', 'zona_riesgo_ids', 'horario_riesgo_ids', 'lugar_nacimiento', 'violencia_pareja_anterior', 'contacto_emergencia1', 'tel_emergencia1', 'contacto_emergencia2', 'tel_emergencia2', 'situacion_desencadenante', 'menor_18', 'nombre_tutela', 'tel_tutela', 'direccion_tutela', 'observaciones'], 'safe'],
         ];
     }
 
@@ -66,38 +66,38 @@ class CedulasIdentificacionesSearch extends CedulasIdentificaciones
             'hora_termino' => $this->hora_termino,
             'fecha_ult_incidente' => $this->fecha_ult_incidente,
             'tipo_llamada_id' => $this->tipo_llamada_id,
-            'tipificacion_id' => $this->tipificacion_id,
             'tipo_emergencia_id' => $this->tipo_emergencia_id,
-            'coorporacion_id' => $this->coorporacion_id,
             'institucion_id' => $this->institucion_id,
             'sexo_id' => $this->sexo_id,
             'colonia_id' => $this->colonia_id,
             'entidad_id' => $this->entidad_id,
+            'zona_id' => $this->zona_id,
             'congregacion_id' => $this->congregacion_id,
             'religion_id' => $this->religion_id,
             'nacionalidad_id' => $this->nacionalidad_id,
+            'nivel_riesgo_id' => $this->nivel_riesgo_id,
             'created_by' => $this->created_by,
             'relacion_parentezco_id' => $this->relacion_parentezco_id,
-            'entero_servicio_id' => $this->entero_servicio_id,
             'updated_at' => $this->updated_at,
             'updated_by' => $this->updated_by,
         ]);
 
         $query->andFilterWhere(['like', 'tel_llamada', $this->tel_llamada])
+            ->andFilterWhere(['like', 'tipificacion_ids', $this->tipificacion_ids])
+            ->andFilterWhere(['like', 'coorporacion_ids', $this->coorporacion_ids])
             ->andFilterWhere(['like', 'tipoasesoria_ids', $this->tipoasesoria_ids])
             ->andFilterWhere(['like', 'nombre', $this->nombre])
             ->andFilterWhere(['like', 'apaterno', $this->apaterno])
             ->andFilterWhere(['like', 'amaterno', $this->amaterno])
             ->andFilterWhere(['like', 'calle', $this->calle])
-            ->andFilterWhere(['like', 'domicilio', $this->domicilio])
             ->andFilterWhere(['like', 'no_int', $this->no_int])
             ->andFilterWhere(['like', 'no_ext', $this->no_ext])
+            ->andFilterWhere(['like', 'colonia_nueva', $this->colonia_nueva])
+            ->andFilterWhere(['like', 'colonia_foranea', $this->colonia_foranea])
             ->andFilterWhere(['like', 'localidad', $this->localidad])
             ->andFilterWhere(['like', 'municipio', $this->municipio])
-            ->andFilterWhere(['like', 'zona', $this->zona])
             ->andFilterWhere(['like', 'zona_riesgo_ids', $this->zona_riesgo_ids])
             ->andFilterWhere(['like', 'horario_riesgo_ids', $this->horario_riesgo_ids])
-            ->andFilterWhere(['like', 'tipo_riesgo_ids', $this->tipo_riesgo_ids])
             ->andFilterWhere(['like', 'lugar_nacimiento', $this->lugar_nacimiento])
             ->andFilterWhere(['like', 'violencia_pareja_anterior', $this->violencia_pareja_anterior])
             ->andFilterWhere(['like', 'contacto_emergencia1', $this->contacto_emergencia1])

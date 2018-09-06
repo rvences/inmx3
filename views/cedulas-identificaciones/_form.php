@@ -342,10 +342,10 @@ $this->registerJs($JS, $this::POS_READY);
     <div class="row">
         <div class="col-md-4">
             <?php
-            echo $form->field($model, 'tipo_riesgo_ids')->widget(Select2::classname(), [
-                'data' => ArrayHelper::map(\app\models\Ctiposderiesgos::find()->all(), 'id', 'tipo_riesgo'),
+            echo $form->field($model, 'nivel_riesgo_id')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(\app\models\CnivelesRiesgos::find()->all(), 'id', 'nivel_riesgo'),
                 'options' => [
-                    'placeholder' => 'Selecciona el Tipo de Riesgo ...',
+                    'placeholder' => 'Selecciona el nivel de riesgo ...',
                     'multiple' => true,
                 ],
                 'pluginOptions' => [
@@ -432,6 +432,7 @@ $this->registerJs($JS, $this::POS_READY);
             <?= $form->field($model, 'direccion_tutela')->textInput(['maxlength' => true, 'placeholder'=> 'Dirección de quien tutela'])->label(false) ?>
         </div>
 
+        <?php /*
         <div class = "col-md-4 ">
             <?php
             echo $form->field($model, 'entero_servicio_id')->widget(Select2::classname(), [
@@ -443,6 +444,7 @@ $this->registerJs($JS, $this::POS_READY);
             ])->label(false);
             ?>
         </div>
+        */ ?>
     </div>
 
     <div class="row">

@@ -5,19 +5,19 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "ctiposderiesgos".
+ * This is the model class for table "cdanos_psicologicos".
  *
  * @property int $id
- * @property string $tipo_riesgo Tipo de Riesgo
+ * @property string $dano_psicologico Dano Psicologico
  */
-class Ctiposderiesgos extends \yii\db\ActiveRecord
+class CdanosPsicologicos extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'ctiposderiesgos';
+        return 'cdanos_psicologicos';
     }
 
     /**
@@ -26,8 +26,8 @@ class Ctiposderiesgos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tipo_riesgo'], 'required'],
-            [['tipo_riesgo'], 'string', 'max' => 50],
+            [['dano_psicologico'], 'required'],
+            [['dano_psicologico'], 'string', 'max' => 40],
         ];
     }
 
@@ -38,7 +38,7 @@ class Ctiposderiesgos extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'tipo_riesgo' => 'Tipo Riesgo',
+            'dano_psicologico' => 'Dano Psicologico',
         ];
     }
 }

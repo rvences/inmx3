@@ -39,7 +39,7 @@ use Yii;
  * @property int $nacionalidad_id
  * @property string $zona_riesgo_ids
  * @property string $horario_riesgo_ids
- * @property string $tipo_riesgo_ids
+ * @property int $nivel_riesgo_id
  * @property string $lugar_nacimiento
  * @property string $violencia_pareja_anterior
  * @property int $created_by
@@ -54,17 +54,16 @@ use Yii;
  * @property string $tel_tutela
  * @property string $direccion_tutela
  * @property string $observaciones
- * @property int $entero_servicio_id
  * @property int $updated_at
  * @property int $updated_by
  *
  * @property User $updatedBy
  * @property Ccolonias $colonia
  * @property Ccongregaciones $congregacion
- * @property Centeroservicios $enteroServicio
  * @property Centidadesfederativas $entidad
  * @property Cinstituciones $institucion
  * @property Cnacionalidades $nacionalidad
+ * @property CnivelesRiesgos $nivelRiesgo
  * @property Crelacioparentezco $relacionParentezco
  * @property Creligiones $religion
  * @property Csexos $sexo
@@ -90,21 +89,21 @@ class CedulasIdentificaciones extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cedula_id', 'created_at', 'fecha_ult_incidente', 'tipo_llamada_id', 'tipo_emergencia_id', 'institucion_id', 'sexo_id', 'colonia_id', 'entidad_id', 'zona_id', 'congregacion_id', 'religion_id', 'nacionalidad_id', 'created_by', 'relacion_parentezco_id', 'entero_servicio_id', 'updated_at', 'updated_by'], 'integer'],
+            [['cedula_id', 'created_at', 'fecha_ult_incidente', 'tipo_llamada_id', 'tipo_emergencia_id', 'institucion_id', 'sexo_id', 'colonia_id', 'entidad_id', 'zona_id', 'congregacion_id', 'religion_id', 'nacionalidad_id', 'nivel_riesgo_id', 'created_by', 'relacion_parentezco_id', 'updated_at', 'updated_by'], 'integer'],
             [['created_at', 'fecha_ult_incidente', 'created_by', 'updated_at', 'updated_by'], 'required'],
             [['hora_inicio', 'hora_termino'], 'safe'],
             [['situacion_desencadenante', 'observaciones'], 'string'],
             [['tel_llamada', 'tel_emergencia1', 'tel_emergencia2', 'tel_tutela'], 'string', 'max' => 10],
-            [['tipificacion_ids', 'coorporacion_ids', 'tipoasesoria_ids', 'nombre', 'apaterno', 'amaterno', 'calle', 'colonia_nueva', 'colonia_foranea', 'localidad', 'municipio', 'zona_riesgo_ids', 'horario_riesgo_ids', 'tipo_riesgo_ids', 'lugar_nacimiento', 'contacto_emergencia1', 'contacto_emergencia2', 'nombre_tutela', 'direccion_tutela'], 'string', 'max' => 100],
+            [['tipificacion_ids', 'coorporacion_ids', 'tipoasesoria_ids', 'nombre', 'apaterno', 'amaterno', 'calle', 'colonia_nueva', 'colonia_foranea', 'localidad', 'municipio', 'zona_riesgo_ids', 'horario_riesgo_ids', 'lugar_nacimiento', 'contacto_emergencia1', 'contacto_emergencia2', 'nombre_tutela', 'direccion_tutela'], 'string', 'max' => 100],
             [['no_int', 'no_ext'], 'string', 'max' => 50],
             [['violencia_pareja_anterior', 'menor_18'], 'string', 'max' => 1],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
             [['colonia_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ccolonias::className(), 'targetAttribute' => ['colonia_id' => 'id']],
             [['congregacion_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ccongregaciones::className(), 'targetAttribute' => ['congregacion_id' => 'id']],
-            [['entero_servicio_id'], 'exist', 'skipOnError' => true, 'targetClass' => Centeroservicios::className(), 'targetAttribute' => ['entero_servicio_id' => 'id']],
             [['entidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Centidadesfederativas::className(), 'targetAttribute' => ['entidad_id' => 'id']],
             [['institucion_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cinstituciones::className(), 'targetAttribute' => ['institucion_id' => 'id']],
             [['nacionalidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cnacionalidades::className(), 'targetAttribute' => ['nacionalidad_id' => 'id']],
+            [['nivel_riesgo_id'], 'exist', 'skipOnError' => true, 'targetClass' => CnivelesRiesgos::className(), 'targetAttribute' => ['nivel_riesgo_id' => 'id']],
             [['relacion_parentezco_id'], 'exist', 'skipOnError' => true, 'targetClass' => Crelacioparentezco::className(), 'targetAttribute' => ['relacion_parentezco_id' => 'id']],
             [['religion_id'], 'exist', 'skipOnError' => true, 'targetClass' => Creligiones::className(), 'targetAttribute' => ['religion_id' => 'id']],
             [['sexo_id'], 'exist', 'skipOnError' => true, 'targetClass' => Csexos::className(), 'targetAttribute' => ['sexo_id' => 'id']],
@@ -154,7 +153,7 @@ class CedulasIdentificaciones extends \yii\db\ActiveRecord
             'nacionalidad_id' => 'Nacionalidad ID',
             'zona_riesgo_ids' => 'Zona Riesgo Ids',
             'horario_riesgo_ids' => 'Horario Riesgo Ids',
-            'tipo_riesgo_ids' => 'Tipo Riesgo Ids',
+            'nivel_riesgo_id' => 'Nivel Riesgo ID',
             'lugar_nacimiento' => 'Lugar Nacimiento',
             'violencia_pareja_anterior' => '¿Ha vivido violencia con su pareja anterior?',
             'created_by' => 'Created By',
@@ -169,7 +168,6 @@ class CedulasIdentificaciones extends \yii\db\ActiveRecord
             'tel_tutela' => 'Tel Tutela',
             'direccion_tutela' => 'Direccion Tutela',
             'observaciones' => 'Observaciones',
-            'entero_servicio_id' => 'Entero Servicio ID',
             'updated_at' => 'Updated At',
             'updated_by' => 'Updated By',
         ];
@@ -202,14 +200,6 @@ class CedulasIdentificaciones extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEnteroServicio()
-    {
-        return $this->hasOne(Centeroservicios::className(), ['id' => 'entero_servicio_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getEntidad()
     {
         return $this->hasOne(Centidadesfederativas::className(), ['id' => 'entidad_id']);
@@ -229,6 +219,14 @@ class CedulasIdentificaciones extends \yii\db\ActiveRecord
     public function getNacionalidad()
     {
         return $this->hasOne(Cnacionalidades::className(), ['id' => 'nacionalidad_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getNivelRiesgo()
+    {
+        return $this->hasOne(CnivelesRiesgos::className(), ['id' => 'nivel_riesgo_id']);
     }
 
     /**

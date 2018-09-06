@@ -243,6 +243,10 @@ use wbraganca\dynamicform\DynamicFormWidget;
     </div>
 
     <div class="row">
+        <div class="col-md-12"><h3>Violencia Sexual</h3></div>
+    </div>
+
+    <div class="row">
         <div class="col-md-4">
             <?= $form->field($model, 'tiempo_agresion_servicio')->textInput(['maxlength' => true, 'placeholder'=> 'Tiempo entre la agresión y el servicio'])->label(false) ?>
         </div>

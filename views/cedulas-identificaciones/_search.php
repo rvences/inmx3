@@ -31,11 +31,11 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'tipo_llamada_id') ?>
 
-    <?php // echo $form->field($model, 'tipificacion_id') ?>
+    <?php // echo $form->field($model, 'tipificacion_ids') ?>
 
     <?php // echo $form->field($model, 'tipo_emergencia_id') ?>
 
-    <?php // echo $form->field($model, 'coorporacion_id') ?>
+    <?php // echo $form->field($model, 'coorporacion_ids') ?>
 
     <?php // echo $form->field($model, 'institucion_id') ?>
 
@@ -51,13 +51,15 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'calle') ?>
 
-    <?php // echo $form->field($model, 'domicilio') ?>
-
     <?php // echo $form->field($model, 'no_int') ?>
 
     <?php // echo $form->field($model, 'no_ext') ?>
 
     <?php // echo $form->field($model, 'colonia_id') ?>
+
+    <?php // echo $form->field($model, 'colonia_nueva') ?>
+
+    <?php // echo $form->field($model, 'colonia_foranea') ?>
 
     <?php // echo $form->field($model, 'localidad') ?>
 
@@ -65,7 +67,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'entidad_id') ?>
 
-    <?php // echo $form->field($model, 'zona') ?>
+    <?php // echo $form->field($model, 'zona_id') ?>
 
     <?php // echo $form->field($model, 'congregacion_id') ?>
 
@@ -77,7 +79,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'horario_riesgo_ids') ?>
 
-    <?php // echo $form->field($model, 'tipo_riesgo_ids') ?>
+    <?php // echo $form->field($model, 'nivel_riesgo_id') ?>
 
     <?php // echo $form->field($model, 'lugar_nacimiento') ?>
 
@@ -106,8 +108,6 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'direccion_tutela') ?>
 
     <?php // echo $form->field($model, 'observaciones') ?>
-
-    <?php // echo $form->field($model, 'entero_servicio_id') ?>
 
     <?php // echo $form->field($model, 'updated_at') ?>
 

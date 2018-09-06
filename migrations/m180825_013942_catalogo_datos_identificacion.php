@@ -403,19 +403,16 @@ class m180825_013942_catalogo_datos_identificacion extends Migration
         ));
 
         ## CATALOGO DE TIPO DE RIESGO
-        $this->createTable('{{%ctiposderiesgos}}', [
+        $this->createTable('{{%cniveles_riesgos}}', [
             'id' => $this->primaryKey(),
-            'tipo_riesgo' => $this->string(50)->notNull() . " COMMENT 'Tipo de Riesgo' ",
+            'nivel_riesgo' => $this->string(50)->notNull() . " COMMENT 'Nivel de Riesgo' ",
 
         ], $tableOptions
         );
-        $this->batchInsert('ctiposderiesgos', array('tipo_riesgo'), array(
-            ['Violación'],
-            ['Secuestro'],
-            ['Feminicidio'],
-            ['Asalto'],
-            ['Asalto a mano armada'],
-            ['Trata de personas']
+        $this->batchInsert('cniveles_riesgos', array('nivel_riesgo'), array(
+            ['Bajo'],
+            ['Medio'],
+            ['Alto']
         ));
 
         ## CATALOGO DE RELACION-PARENTEZCO
@@ -822,7 +819,44 @@ class m180825_013942_catalogo_datos_identificacion extends Migration
                 ['Espacio público'],
                 ['Transporte privado'],
                 ['Transporte urbano'],
-                ['Transporte público'],
+                ['Centro de Trabajo'],
+                ['Institución Pública'],
+                ['Institución Privada'],
+                ['Instituciones Gubernamentales'],
+                ['Bares y Antros'],
+                ['Centro Comercial'],
+                ['Centro Deportivo'],
+                ['Centro Cultural'],
+                ['Escuela o Colegio'],
+                ['Hospital'],
+                ['Templo / Iglesia'],
+                ['Parque'],
+                ['Mercado'],
+                ['Aeropuerto'],
+                ['Central de Autobuses'],
+                ['Estacionamiento'],
+                ['Empresa'],
+                ['Negocio'],
+                ['Institución'],
+                ['Organismo Gubernamental'],
+                ['Calle'],
+                ['Salón Social / Ejidal'],
+                ['Camino Vecinal'],
+                ['Terreno Baldío'],
+                ['Sembradío'],
+                ['Playa'],
+                ['Rio'],
+                ['Autobus'],
+                ['Taxi'],
+                ['Microbus'],
+                ['Combis'],
+                ['Lancha'],
+                ['Barco'],
+                ['Avión'],
+                ['Ferrocarril'],
+                ['Camión'],
+                ['Camión de Carga/Trailer'],
+                ['Camioneta'],
                 ['Ninguno'],
             ));
 
@@ -993,6 +1027,230 @@ class m180825_013942_catalogo_datos_identificacion extends Migration
                 ['Otra']
             )
         );
+
+        $this->createTable('{{%cdrogas_agresiones}}', [
+            'id' => $this->primaryKey(),
+            'droga_agresion' => $this->string(40)->notNull() . " COMMENT 'Droga en la Agresión' ",
+
+        ], $tableOptions
+        );
+
+        $this->batchInsert('cdrogas_agresiones',
+            array('droga_agresion'),
+            array(
+                ['Alcohol'],
+                ['Droga Ilegal'],
+                ['Droga por indicación Médica'],
+                ['Ninguna']
+            )
+        );
+
+        $this->createTable('{{%cfrecuencias_agresiones}}', [
+            'id' => $this->primaryKey(),
+            'frecuencia_agresion' => $this->string(40)->notNull() . " COMMENT 'Frecuencia en la Agresión' ",
+
+        ], $tableOptions
+        );
+
+        $this->batchInsert('cfrecuencias_agresiones',
+            array('frecuencia_agresion'),
+            array(
+                ['Diario'],
+                ['Varias veces a la semana'],
+                ['Varias veces al mes'],
+                ['Ocasionalmente'],
+                ['Cada mes'],
+                ['Única vez']
+            )
+        );
+
+        $this->createTable('{{%carmas_agresores}}', [
+            'id' => $this->primaryKey(),
+            'arma_agresor' => $this->string(40)->notNull() . " COMMENT 'Armas del Agresor' ",
+
+        ], $tableOptions
+        );
+
+        $this->batchInsert('carmas_agresores',
+            array('arma_agresor'),
+            array(
+                ['Arma de fuego corta'],
+                ['Arma de fuego larga'],
+                ['Cuchillo'],
+                ['Hacha'],
+                ['Machete'],
+                ['Navaja'],
+                ['Picahielos'],
+                ['Tijeras'],
+                ['Ninguna'],
+                ['Se ignora'],
+                ['Otra']
+            )
+        );
+
+        $this->createTable('{{%clesiones_fisicas}}', [
+            'id' => $this->primaryKey(),
+            'lesion_fisica' => $this->string(40)->notNull() . " COMMENT 'Lesión Física' ",
+
+        ], $tableOptions
+        );
+
+        $this->batchInsert('clesiones_fisicas',
+            array('lesion_fisica'),
+            array(
+                ['Contusión / Golpe'],
+                ['Hematoma ( Moretón)'],
+                ['Corte o Desgarre de la piel'],
+                ['Fractura'],
+                ['Quemadura'],
+                ['Mordedura'],
+                ['Raspadura'],
+                ['Tentativa de Ahorcamiento']
+            )
+        );
+
+        $this->createTable('{{%clesiones_agentes}}', [
+            'id' => $this->primaryKey(),
+            'lesion_agente' => $this->string(40)->notNull() . " COMMENT 'Agente' ",
+
+        ], $tableOptions
+        );
+
+        $this->batchInsert('clesiones_agentes',
+            array('lesion_agente'),
+            array(
+                ['Arma de fuego ( Bala)'],
+                ['Arma Punzocortante'],
+                ['Automóvil/Motocicleta'],
+                ['Pie/Mano'],
+            )
+        );
+
+        $this->createTable('{{%careas_lesionadas}}', [
+            'id' => $this->primaryKey(),
+            'area_lesionada' => $this->string(40)->notNull() . " COMMENT 'Area lesionada' ",
+
+        ], $tableOptions
+        );
+
+        $this->batchInsert('careas_lesionadas',
+            array('area_lesionada'),
+            array(
+                ['Cabeza'],
+                ['Cara'],
+                ['Cuello'],
+                ['Extremidades Inferiores'],
+                ['Extremidades Superiores']
+            )
+        );
+
+        $this->createTable('{{%cdanos_psicologicos}}', [
+            'id' => $this->primaryKey(),
+            'dano_psicologico' => $this->string(40)->notNull() . " COMMENT 'Dano Psicologico' ",
+
+        ], $tableOptions
+        );
+
+        $this->batchInsert('cdanos_psicologicos',
+            array('dano_psicologico'),
+            array(
+                ['Angustia o Miedo'],
+                ['Depresión'],
+                ['Estrés Postraumático'],
+                ['Insomnio'],
+                ['Intento de Suicidio'],
+                ['Peonso Suicidarse'],
+                ['Trastornos Alimenticios'],
+                ['Trastornos de Ansiedad'],
+                ['Trastornos Psiquiátricos'],
+                ['Tristeza o Aflicción'],
+                ['Pérdida de Autonomía']
+            )
+        );
+
+        $this->createTable('{{%cdanos_economicos}}', [
+            'id' => $this->primaryKey(),
+            'dano_economico' => $this->string(45)->notNull() . " COMMENT 'Dano Economico' ",
+
+        ], $tableOptions
+        );
+
+        $this->batchInsert('cdanos_economicos',
+            array('dano_economico'),
+            array(
+                ['Interrupción de Estudios'],
+                ['No le da contribución económica'],
+                ['La explota laboralmente'],
+                ['Le quita su dinero'],
+                ['Perdió propiedades'],
+                ['Perdió trabajo'],
+                ['No la deja trabajar']
+            )
+        );
+
+        $this->createTable('{{%cindicadores_riesgos}}', [
+            'id' => $this->primaryKey(),
+            'indicador_riesgo' => $this->string()->notNull() . " COMMENT 'Indicador de Riesgo' ",
+
+        ], $tableOptions
+        );
+        $this->batchInsert('cindicadores_riesgos',
+            array('indicador_riesgo'),
+            array(
+                ['* Ataques previos con riesgo mortal'],
+                ['* Amenazas de muerte a la victima'],
+                ['* El agresor irrespeta las medidas de protección'],
+                ['* El agresor es convicto o exconvicto por delitos contra las personas'],
+                ['* El agresor tiene una acusación o condena previa por delitos contra la integridad fisica o sexual de las personas'],
+                ['* Intento o amenaza de suicidio de parte del agresor'],
+                ['* La víctima considera que el agresor es capaz de matarla'],
+                ['* La víctima está aislada o retenida por el agresor contra su propia voluntad o lo ha estado previamente'],
+                ['* Abuso sexual del agresor contra los hijos u otras personas menores de edad de la familia cercana, asi como tentativa de realizarlo'],
+                ['El agresor pertenece a una institución policial, fuerzas armadas o procuración de justicia'],
+                ['Hay abuso fisico contra los hijo/jas o la víctima y/o hijos/jas han sido amenazados o heridos con arma de fuego o blanca'],
+                ['La víctima es recientemente separada, ha anunciado que piensa separarse, ha puesto una denuncia penal o han solicitado medidas de protección'],
+                ['Abuso de alcohol o drogas por parte del agresor'],
+                ['Aumento de la frecuencia y gravedad de la violencia'],
+                ['La víctima ha recibido atención en salud como consecuencia de la agresiones o ha recibido atención psiquiátrica'],
+                ['El agresor tiene antecedentes psiquiátricos'],
+                ['El agresor es una persona que tiene conocimiento en el uso, acceso, trabaja o porta armas de fuego'],
+                ['Resistencia violenta a la intervención policial o a la de otras figuras de autoridad'],
+                ['Acoso, control o amedrentamiento sistemático de la víctima'],
+                ['Que haya matado mascotas'],
+            )
+        );
+
+        $this->createTable('{{%ctipos_canalizaciones}}', [
+            'id' => $this->primaryKey(),
+            'tipo_canalizacion' => $this->string(20)->notNull() . " COMMENT 'Tipos de Canalizaciones' ",
+
+        ], $tableOptions
+        );
+
+        $this->batchInsert('ctipos_canalizaciones',
+            array('tipo_canalizacion'),
+            array(
+                ['Psicologica'],
+                ['Jurídica'],
+            ));
+
+        $this->createTable('{{%ctipos_seguimientos}}', [
+            'id' => $this->primaryKey(),
+            'tipo_seguimiento' => $this->string(20)->notNull() . " COMMENT 'Tipos de Seguimiento' ",
+
+        ], $tableOptions
+        );
+
+        $this->batchInsert('ctipos_seguimientos',
+            array('tipo_seguimiento'),
+            array(
+                ['Psicologico'],
+                ['Jurídico'],
+                ['Telefónico'],
+                ['Presencial'],
+            ));
+
+
 
     }
 
