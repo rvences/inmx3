@@ -52,8 +52,8 @@ $this->registerJs($JS, $this::POS_READY);
 
     ?>
 
-    <?= $form->field($model, 'cedula_id')->textInput() ?>
-    <?= $form->field($model, 'hora_inicio')->textInput() ?>
+    <?= $form->field($model, 'cedula_id')->hiddenInput()->label(false) ?>
+    <?= $form->field($model, 'hora_inicio')->hiddenInput()->label(false) ?>
 
     <?php
     /*

@@ -7,8 +7,8 @@ use yii\helpers\Html;
 /* @var $model app\models\CedulasIdentificaciones */
 
 $this->title = 'Nuevas Cédulas Identificaciones';
-$this->params['breadcrumbs'][] = ['label' => 'Cedulas Identificaciones', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+        $this->params['breadcrumbs'][] = ['label' => 'Cedulas Identificaciones', 'url' => ['index']];
+        $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="panel-info">
