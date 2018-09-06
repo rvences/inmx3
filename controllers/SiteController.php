@@ -65,7 +65,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         if (User::isUserTelefonico(Yii::$app->user->identity->id) ) {
-            return $this->redirect(['cedulas-telefonicas/create']);
+            return $this->redirect(['cedulas-identificaciones/create']);
         }elseif ( User::isUserPresencial(Yii::$app->user->identity->id) ) {
             return $this->redirect(['cedulas-presenciales/create']);
         }
@@ -88,7 +88,7 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             if (User::isUserTelefonico(Yii::$app->user->identity->id) ) {
-                return $this->redirect(['cedulas-telefonicas/create']);
+                return $this->redirect(['cedulas-identificaciones/create']);
             }elseif ( User::isUserPresencial(Yii::$app->user->identity->id) ) {
                 return $this->redirect(['cedulas-presenciales/create']);
             }
@@ -172,24 +172,26 @@ class SiteController extends Controller
         if (empty($model)) {
             $user = new User();
             $user->tipo_usuario = 'PRESENCIAL';
+            $user->nombre= 'Sofía Isabel Villafañe Trujillo';
             $user->username = 'presencial';
             $user->email = 'presencial@nibira.com';
             $user->setPassword('presencial');
             $user->generateAuthKey();
             if ($user->save()) {
-                echo 'Generado Kory';
+                echo 'Generado Presencial';
             }
         }
         $model = User::find()->where(['username' => 'telefonico'])->one();
         if (empty($model)) {
             $user = new User();
             $user->tipo_usuario = 'TELEFONICO';
+            $user->nombre = 'Alina García';
             $user->username = 'telefonico';
             $user->email = 'telefonico@nibira.com';
             $user->setPassword('telefonico');
             $user->generateAuthKey();
             if ($user->save()) {
-                echo 'Generado Kory';
+                echo 'Generado Telefónico';
             }
         }
     }

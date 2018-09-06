@@ -44,9 +44,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } elseif (\app\models\User::isUserTelefonico(Yii::$app->user->identity->id)) {
         $menuItems = [
-            ['label' => 'Cédula Telefónica', 'url' => ['/cedulas-telefonicas/create'],],
-            ['label' => 'Expediente', 'url' => ['/generalesusuarias/create'],],
-
+            ['label' => 'Cédula Telefónica', 'url' => ['/cedulas-identificaciones/create'],],
             ['label' => 'Personal', 'items'=> array(
                 ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
                     'url' => ['/site/logout'],

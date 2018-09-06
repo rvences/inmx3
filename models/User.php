@@ -12,6 +12,7 @@ use yii\web\IdentityInterface;
  *
  * @property int $id
  * @property string $username
+ * @property string $nombre
  * @property string $tipo_usuario
  * @property string $auth_key
  * @property string $password_hash
@@ -56,7 +57,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
            // [['username', 'tipo_usuario', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
             [['status', 'created_at', 'updated_at'], 'integer'],
-            [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
+            [['username', 'nombre', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             //[['tipo_usuario'], 'string', 'max' => 10],
             [['auth_key'], 'string', 'max' => 32],
             [['username'], 'unique'],
@@ -75,6 +76,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             'id' => 'ID',
             'username' => 'Usuario',
+            'nombre' => 'Nombre',
             'tipo_usuario' => 'Tipo Usuario',
             'auth_key' => 'Auth Key',
             'password_hash' => 'Password Hash',

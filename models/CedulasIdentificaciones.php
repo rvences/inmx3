@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "cedulas_identificaciones".
@@ -13,7 +15,7 @@ use Yii;
  * @property int $created_at
  * @property string $hora_inicio
  * @property string $hora_termino
- * @property int $fecha_ult_incidente
+ * @property string $fecha_ult_incidente
  * @property int $tipo_llamada_id
  * @property string $tipificacion_ids
  * @property int $tipo_emergencia_id
@@ -89,12 +91,16 @@ class CedulasIdentificaciones extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['created_at', 'created_by', 'updated_at', 'updated_by', 'hora_termino', 'hora_inicio',
+               ], 'safe'],
+
             [['cedula_id', 'created_at', 'fecha_ult_incidente', 'tipo_llamada_id', 'tipo_emergencia_id', 'institucion_id', 'sexo_id', 'colonia_id', 'entidad_id', 'zona_id', 'congregacion_id', 'religion_id', 'nacionalidad_id', 'nivel_riesgo_id', 'created_by', 'relacion_parentezco_id', 'updated_at', 'updated_by'], 'integer'],
-            [['created_at', 'fecha_ult_incidente', 'created_by', 'updated_at', 'updated_by'], 'required'],
-            [['hora_inicio', 'hora_termino'], 'safe'],
+            [['fecha_ult_incidente'], 'safe'],
+            //[['created_at', 'fecha_ult_incidente', 'created_by', 'updated_at', 'updated_by'], 'required'],
+            //[['hora_inicio', 'hora_termino'], 'safe'],
             [['situacion_desencadenante', 'observaciones'], 'string'],
             [['tel_llamada', 'tel_emergencia1', 'tel_emergencia2', 'tel_tutela'], 'string', 'max' => 10],
-            [['tipificacion_ids', 'coorporacion_ids', 'tipoasesoria_ids', 'nombre', 'apaterno', 'amaterno', 'calle', 'colonia_nueva', 'colonia_foranea', 'localidad', 'municipio', 'zona_riesgo_ids', 'horario_riesgo_ids', 'lugar_nacimiento', 'contacto_emergencia1', 'contacto_emergencia2', 'nombre_tutela', 'direccion_tutela'], 'string', 'max' => 100],
+            [['nombre', 'apaterno', 'amaterno', 'calle', 'colonia_nueva', 'colonia_foranea', 'localidad', 'municipio', 'lugar_nacimiento', 'contacto_emergencia1', 'contacto_emergencia2', 'nombre_tutela', 'direccion_tutela'], 'string', 'max' => 100],
             [['no_int', 'no_ext'], 'string', 'max' => 50],
             [['violencia_pareja_anterior', 'menor_18'], 'string', 'max' => 1],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
@@ -112,6 +118,23 @@ class CedulasIdentificaciones extends \yii\db\ActiveRecord
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['zona_id'], 'exist', 'skipOnError' => true, 'targetClass' => Czonas::className(), 'targetAttribute' => ['zona_id' => 'id']],
             [['cedula_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cedulas::className(), 'targetAttribute' => ['cedula_id' => 'id']],
+
+
+            [['tel_llamada', 'tel_emergencia1', 'tel_emergencia2'], 'double'],
+
+            [['tel_llamada', 'nombre', 'apaterno', 'amaterno', 'calle', 'no_int', 'no_ext', 'colonia_nueva',
+                'colonia_foranea', 'localidad', 'municipio', 'lugar_nacimiento', 'contacto_emergencia1',
+                'contacto_emergencia2', 'tel_emergencia1', 'tel_emergencia2', 'situacion_desencadenante', 'nombre_tutela',
+                'tel_tutela', 'direccion_tutela', 'observaciones'], 'filter', 'filter' => 'trim', 'skipOnArray' => true],
+            [['nombre', 'apaterno', 'amaterno', 'calle', 'no_int', 'no_ext', 'colonia_nueva',
+                'colonia_foranea', 'localidad', 'municipio', 'lugar_nacimiento', 'contacto_emergencia1',
+                'contacto_emergencia2', 'situacion_desencadenante', 'nombre_tutela',
+                'direccion_tutela', 'observaciones'], 'filter', 'filter' => 'strtoupper'],
+
+
+
+
+
         ];
     }
 
@@ -122,54 +145,72 @@ class CedulasIdentificaciones extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'cedula_id' => 'Cedula ID',
-            'tel_llamada' => 'Tel Llamada',
-            'created_at' => 'Created At',
+            'cedula_id' => 'ID de la Cédula',
+            'tel_llamada' => 'Teléfono de la Llamada',
+            'created_at' => 'Fecha de creación',
             'hora_inicio' => 'Hora Inicio',
             'hora_termino' => 'Hora Termino',
-            'fecha_ult_incidente' => 'Fecha Ult Incidente',
-            'tipo_llamada_id' => 'Tipo Llamada ID',
-            'tipificacion_ids' => 'Tipificacion Ids',
-            'tipo_emergencia_id' => 'Tipo Emergencia ID',
-            'coorporacion_ids' => 'Coorporacion Ids',
-            'institucion_id' => 'Institucion ID',
-            'tipoasesoria_ids' => 'Tipoasesoria Ids',
-            'sexo_id' => 'Sexo ID',
+            'fecha_ult_incidente' => 'Fecha último Incidente',
+            'tipo_llamada_id' => 'Tipo de llamada',
+            'tipificacion_ids' => 'Tipificaciones',
+            'tipo_emergencia_id' => 'Tipo de emergencia',
+            'coorporacion_ids' => 'Coorporaciones',
+            'institucion_id' => 'Institución a canalizar',
+            'tipoasesoria_ids' => 'Tipo de asesorias',
+            'sexo_id' => 'Sexo',
             'nombre' => 'Nombre',
-            'apaterno' => 'Apaterno',
-            'amaterno' => 'Amaterno',
+            'apaterno' => 'Apellido paterno',
+            'amaterno' => 'Apellido materno',
             'calle' => 'Calle',
-            'no_int' => 'No Int',
-            'no_ext' => 'No Ext',
-            'colonia_id' => 'Colonia ID',
+            'no_int' => 'Número interior',
+            'no_ext' => 'Número exterior',
+            'colonia_id' => 'Colonia de catálogo',
             'colonia_nueva' => 'Colonia Nueva',
-            'colonia_foranea' => 'Colonia Foranea',
+            'colonia_foranea' => 'Colonia Foránea',
             'localidad' => 'Localidad',
             'municipio' => 'Municipio',
-            'entidad_id' => 'Entidad ID',
-            'zona_id' => 'Zona ID',
-            'congregacion_id' => 'Congregacion ID',
-            'religion_id' => 'Religion ID',
-            'nacionalidad_id' => 'Nacionalidad ID',
-            'zona_riesgo_ids' => 'Zona Riesgo Ids',
-            'horario_riesgo_ids' => 'Horario Riesgo Ids',
-            'nivel_riesgo_id' => 'Nivel Riesgo ID',
-            'lugar_nacimiento' => 'Lugar Nacimiento',
+            'entidad_id' => 'Entidad federativa',
+            'zona_id' => 'Zona',
+            'congregacion_id' => 'Congregación',
+            'religion_id' => 'Religión',
+            'nacionalidad_id' => 'Nacionalidad',
+            'zona_riesgo_ids' => 'Zonas de riesgos por colonia',
+            'horario_riesgo_ids' => 'Horarios del día de mayor riesgo',
+            'nivel_riesgo_id' => 'Nivel de riesgo',
+            'lugar_nacimiento' => 'Lugar de nacimiento',
             'violencia_pareja_anterior' => '¿Ha vivido violencia con su pareja anterior?',
-            'created_by' => 'Created By',
-            'contacto_emergencia1' => 'Contacto Emergencia1',
-            'tel_emergencia1' => 'Tel Emergencia1',
-            'contacto_emergencia2' => 'Contacto Emergencia2',
-            'tel_emergencia2' => 'Tel Emergencia2',
-            'situacion_desencadenante' => 'Situacion Desencadenante',
+            'created_by' => 'Atendida por',
+            'contacto_emergencia1' => 'Contacto principal de emergencia',
+            'tel_emergencia1' => 'Teléfono del contacto principal',
+            'contacto_emergencia2' => 'Contacto secundario de emergencia',
+            'tel_emergencia2' => 'Teléfono del contacto secundario',
+            'situacion_desencadenante' => 'Situación desencadenante',
             'menor_18' => 'Menor de 18 años',
-            'nombre_tutela' => 'Nombre Tutela',
-            'relacion_parentezco_id' => 'Relacion Parentezco ID',
-            'tel_tutela' => 'Tel Tutela',
-            'direccion_tutela' => 'Direccion Tutela',
+            'nombre_tutela' => 'Nombre de quién tutela',
+            'relacion_parentezco_id' => 'Relacion - Parentezco del tutor',
+            'tel_tutela' => 'Teléfono del tutor',
+            'direccion_tutela' => 'Dirección del tutor',
             'observaciones' => 'Observaciones',
-            'updated_at' => 'Updated At',
-            'updated_by' => 'Updated By',
+            'updated_at' => 'Fecha de Actualización',
+            'updated_by' => 'Actualizado por',
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
         ];
     }
 

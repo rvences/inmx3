@@ -20,6 +20,7 @@ class m180823_232223_init extends Migration
         $this->createTable('user', [
             'id' => $this->primaryKey(),
             'username' => $this->string()->notNull()->unique(),
+            'nombre' => $this->string(100)->notNull()->unique(),
             'tipo_usuario' => $this->string(10)->notNull(),
             'auth_key' => $this->string(32)->notNull(),
             'password_hash' => $this->string()->notNull(),

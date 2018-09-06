@@ -5,17 +5,27 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\CedulasIdentificaciones */
 
+/*
 $this->title = 'Update Cedulas Identificaciones: ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Cedulas Identificaciones', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
+*/
 ?>
-<div class="cedulas-identificaciones-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+<div class="row bg-info">
+    <div class="col-md-3">Ejecutiva: <b><?=$modelCedula->updatedBy->nombre?></b> </div>
+    <div class="col-md-3">Folio: <b><?=$modelCedula->id?></b> </div>
+    <div class="col-md-6">Fecha de Inicio: <b><?=\Yii::$app->formatter->asTime($modelCedula->created_at, "php:d-m-Y H:i:s");?></b> </div>
 
 </div>
+<div class="panel-heading"><h2>Datos de Identificación</h2></div>
+
+<div class="panel-body">
+    <?= $this->render('_form', [
+        'model' => $model,
+        'modelCedula' => $modelCedula,
+    ]) ?>
+</div>
+
+

@@ -46,10 +46,18 @@ $this->registerJs($JS, $this::POS_READY);
 
     ?>
     <?php
+
+        $model->cedula_id = $modelCedula->id;
+        $model->hora_inicio = \Yii::$app->formatter->asTime($modelCedula->updated_at, "php:H:i:s");
+
+    ?>
+
+    <?= $form->field($model, 'cedula_id')->textInput() ?>
+    <?= $form->field($model, 'hora_inicio')->textInput() ?>
+
+    <?php
     /*
-         <?= $form->field($model, 'cedula_id')->textInput() ?>
         <?= $form->field($model, 'created_at')->textInput() ?>
-        <?= $form->field($model, 'hora_inicio')->textInput() ?>
         <?= $form->field($model, 'created_by')->textInput() ?>
         <?= $form->field($model, 'hora_termino')->textInput() ?>
         <?= $form->field($model, 'updated_at')->textInput() ?>
@@ -58,10 +66,6 @@ $this->registerJs($JS, $this::POS_READY);
 
      */
     ?>
-    <div class="row">
-        <div class="col-md-1">Folio: 1</div><div class="col-md-2">Creado: 02-08-2018</div><div class="col-md-2">Hora: 15:54</div><div class="col-md-2">Atendió: Lic. Telefonico</div>
-
-    </div>
 
     <div class="row">
 

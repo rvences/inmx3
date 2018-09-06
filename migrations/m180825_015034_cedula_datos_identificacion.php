@@ -42,7 +42,7 @@ class m180825_015034_cedula_datos_identificacion extends Migration
             'created_at' => $this->integer()->notNull(),
             'hora_inicio' => $this->time(), // CP
             'hora_termino' => $this->time(), // CP
-            'fecha_ult_incidente' => $this->integer()->notNull(),
+            'fecha_ult_incidente' => $this->date(),
             'tipo_llamada_id' => $this->integer(), // CT
             'tipificacion_ids' => $this->string(100), // CT
             'tipo_emergencia_id' => $this->integer(), // CT
