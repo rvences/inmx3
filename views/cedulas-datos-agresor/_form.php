@@ -14,8 +14,12 @@ use yii\helpers\ArrayHelper;
 <div class="cedulas-datos-agresor-form">
 
     <?php $form = ActiveForm::begin();
-    echo $form->errorSummary([$model]);
+    echo $form->errorSummary([$model, $modelCedula]);
+
+    $model->cedula_id = $modelCedula->id;
     ?>
+
+    <?= $form->field($model, 'cedula_id')->hiddenInput()->label(false) ?>
 
     <?php
     /*

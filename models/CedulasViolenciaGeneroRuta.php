@@ -18,6 +18,8 @@ use yii\db\ActiveRecord;
  * @property int $created_by
  * @property int $updated_at
  * @property int $updated_by
+ *
+ * @property CedulasViolenciaGenero $cedulasViolenciaGenero
  */
 class CedulasViolenciaGeneroRuta extends \yii\db\ActiveRecord
 {
@@ -36,10 +38,28 @@ class CedulasViolenciaGeneroRuta extends \yii\db\ActiveRecord
     {
         return [
             [['cedulas_violencia_genero_id', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
-            [['created_at', 'created_by', 'updated_at', 'updated_by'], 'required'],
+            [['created_at', 'created_by', 'updated_at', 'updated_by'], 'safe'],
             [['institucion', 'servicio'], 'string', 'max' => 100],
             [['calidad'], 'string', 'max' => 1],
             [['cedulas_violencia_genero_id'], 'exist', 'skipOnError' => true, 'targetClass' => CedulasViolenciaGenero::className(), 'targetAttribute' => ['cedulas_violencia_genero_id' => 'id']],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
         ];
     }
 
@@ -53,11 +73,11 @@ class CedulasViolenciaGeneroRuta extends \yii\db\ActiveRecord
             'cedulas_violencia_genero_id' => 'Cedulas Violencia Genero ID',
             'institucion' => 'Institucion',
             'servicio' => 'Servicio',
-            'calidad' => 'Calidad',
-            'created_at' => 'Created At',
-            'created_by' => 'Created By',
-            'updated_at' => 'Updated At',
-            'updated_by' => 'Updated By',
+            'calidad' => 'Calidad en servicio',
+            'created_at' => 'Fecha de Creación',
+            'created_by' => 'Creado por',
+            'updated_at' => 'Fecha de Actualización',
+            'updated_by' => 'Actualizado por',
         ];
     }
 

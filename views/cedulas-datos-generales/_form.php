@@ -333,7 +333,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
             ?>
         </div>
         <div class="col-md-4">
-            <?php $data = ['1' => '1', '2' => '2', '3' => '3', '+' => '>3'];
+            <?php $data = ['1' => '1', '2' => '2', '3' => '3', '9' => '>3'];
             echo $form->field($model, 'numero_jornadas')->radioButtonGroup($data);
             ?>
         </div>
@@ -341,7 +341,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     <div class="row">
         <div class="col-md-4">
-            <?php $data = ['1' => '1', '2' => '2', '3' => '3', '+' => '>3'];
+            <?php $data = ['1' => '1', '2' => '2', '3' => '3', '9' => '>3'];
             echo $form->field($model, 'numero_ingresos')->radioButtonGroup($data);
             ?>
         </div>

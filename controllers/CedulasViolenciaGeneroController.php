@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Cedulas;
 use app\models\CedulasViolenciaGeneroRuta;
 use Yii;
 use app\models\CedulasViolenciaGenero;
@@ -9,7 +10,10 @@ use app\models\search\CedulasViolenciaGeneroSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\filters\AccessControl;
+use app\models\User;
+use app\models\Model;
+use yii\helpers\ArrayHelper;
 /**
  * CedulasViolenciaGeneroController implements the CRUD actions for CedulasViolenciaGenero model.
  */
@@ -21,6 +25,19 @@ class CedulasViolenciaGeneroController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['create', 'view', 'update'],
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return User::isUserTelefonico(Yii::$app->user->identity->id)  ;
+                        },
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -65,16 +82,35 @@ class CedulasViolenciaGeneroController extends Controller
      */
     public function actionCreate()
     {
+        $valor_cedula_temporal = 1;
+        $cedula = Cedulas::find()->where(['id' => $valor_cedula_temporal])->one();
+
         $model = new CedulasViolenciaGenero();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $model->tipo_violencia_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['tipo_violencia_ids']);
+            $model->tipo_modalidad_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['tipo_modalidad_ids']);
+            $model->sintomatologia_emocional_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['sintomatologia_emocional_ids']);
+            $model->sintomatologia_fisica_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['sintomatologia_fisica_ids']);
+            $model->creencias_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['creencias_ids']);
+            $model->factores_psicosociales_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['factores_psicosociales_ids']);
+            $model->relacion_pareja_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['relacion_pareja_ids']);
+            $model->relato_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['relato_ids']);
+            $model->relaciones_sociales_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['relaciones_sociales_ids']);
+            $model->tipo_demanda_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['tipo_demanda_ids']);
+
+            $model->save();
+
+
+            return $this->redirect(['update', 'id' => $model->id]);
+
+            //return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
             'modelsGR'=> (empty($modelsGR)) ? [new CedulasViolenciaGeneroRuta()] : $modelsGR,
-
+            'modelCedula' => $cedula,
         ]);
     }
 
@@ -88,13 +124,75 @@ class CedulasViolenciaGeneroController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelCedula = Cedulas::find()->where(['id' => $model->cedula_id])->one();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $modelsGR = $model->cedulasViolenciaGeneroRutas;
+
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->tipo_violencia_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['tipo_violencia_ids']);
+            $model->tipo_modalidad_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['tipo_modalidad_ids']);
+            $model->sintomatologia_emocional_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['sintomatologia_emocional_ids']);
+            $model->sintomatologia_fisica_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['sintomatologia_fisica_ids']);
+            $model->creencias_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['creencias_ids']);
+            $model->factores_psicosociales_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['factores_psicosociales_ids']);
+            $model->relacion_pareja_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['relacion_pareja_ids']);
+            $model->relato_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['relato_ids']);
+            $model->relaciones_sociales_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['relaciones_sociales_ids']);
+            $model->tipo_demanda_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['tipo_demanda_ids']);
+
+            $oldIDs = ArrayHelper::map($modelsGR, 'id', 'id');
+            $modelsGR = Model::createMultiple(CedulasViolenciaGeneroRuta::classname(), $modelsGR);
+            Model::loadMultiple($modelsGR, Yii::$app->request->post());
+            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsGR, 'id', 'id')));
+
+
+            // validate all models
+            $valid = $model->validate();
+            $valid = Model::validateMultiple($modelsGR) && $valid;
+
+            if ($valid) {
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $model->save(false)) {
+                        if (! empty($deletedIDs)) {
+                            CedulasViolenciaGeneroRuta::deleteAll(['id' => $deletedIDs]);
+                        }
+                        foreach ($modelsGR as $modelGR) {
+                            $modelGR->cedulas_violencia_genero_id = $model->id;
+                            if (! ($flag = $modelGR->save(false))) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+                    }
+                    if ($flag) {
+                        $transaction->commit();
+                        return $this->redirect(['update', 'id' => $model->id]);
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
+            $model->save();
+            return $this->redirect(['update', 'id' => $model->id]);
+            //return $this->redirect(['view', 'id' => $model->id]);
         }
+
+        $model->tipo_violencia_ids = json_decode($model->tipo_violencia_ids);
+        $model->tipo_modalidad_ids = json_decode($model->tipo_modalidad_ids);
+        $model->sintomatologia_emocional_ids = json_decode($model->sintomatologia_emocional_ids);
+        $model->sintomatologia_fisica_ids = json_decode($model->sintomatologia_fisica_ids);
+        $model->creencias_ids = json_decode($model->creencias_ids);
+        $model->factores_psicosociales_ids = json_decode($model->factores_psicosociales_ids);
+        $model->relacion_pareja_ids = json_decode($model->relacion_pareja_ids);
+        $model->relato_ids = json_decode($model->relato_ids);
+        $model->relaciones_sociales_ids = json_decode($model->relaciones_sociales_ids);
+        $model->tipo_demanda_ids = json_decode($model->tipo_demanda_ids);
 
         return $this->render('update', [
             'model' => $model,
+            'modelsGR' => (empty($modelsGR)) ? [new CedulasViolenciaGeneroRuta()] : $modelsGR,
+            'modelCedula' => $modelCedula,
         ]);
     }
 

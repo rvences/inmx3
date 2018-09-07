@@ -167,7 +167,7 @@ class CedulasIdentificaciones extends \yii\db\ActiveRecord
             'no_ext' => 'Número exterior',
             'colonia_id' => 'Colonia de catálogo',
             'colonia_nueva' => 'Colonia Nueva',
-            'colonia_foranea' => 'Colonia Foránea',
+            'colonia_foranea' => 'Colonia foránea',
             'localidad' => 'Localidad',
             'municipio' => 'Municipio',
             'entidad_id' => 'Entidad federativa',

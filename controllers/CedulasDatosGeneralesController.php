@@ -14,8 +14,7 @@ use yii\filters\AccessControl;
 use app\models\User;
 use app\models\Model;
 use yii\helpers\ArrayHelper;
-use yii\web\Response;
-use yii\widgets\ActiveForm;
+
 
 /**
  * CedulasDatosGeneralesController implements the CRUD actions for CedulasDatosGenerales model.

@@ -16,9 +16,12 @@ use wbraganca\dynamicform\DynamicFormWidget;
 <div class="cedulas-violencia-genero-form">
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']);
-    echo $form->errorSummary([$model]);
+    echo $form->errorSummary([$model, $modelCedula]);
+    $model->cedula_id = $modelCedula->id;
 
     ?>
+    <?= $form->field($model, 'cedula_id')->hiddenInput()->label(false) ?>
+
     <?php
     /*
     <?= $form->field($model, 'cedula_id')->textInput() ?>
@@ -281,7 +284,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
             'widgetBody' => '.container-items', // required: css class selector
             'widgetItem' => '.item', // required: css class
             'limit' => 4, // the maximum times, an element can be added (default 999)
-            'min' => 1, // 0 or 1 (default 1)
+            'min' => 0, // 0 or 1 (default 1)
             'insertButton' => '.add-item', // css class
             'deleteButton' => '.remove-item', // css class
             'model' => $modelsGR[0],
