@@ -93,7 +93,7 @@ class m180830_184714_violencia_genero extends Migration
 
         $this->createTable('cedulas_violencia_genero_ruta', [
             'id' => $this->primaryKey(),
-            'cedula_id' => $this->integer(), // Folio de la Cedula
+            'cedulas_violencia_genero_id' => $this->integer(), // Folio de la Cedula
             'institucion' => $this->string(100),
             'servicio' => $this->string(100),
             'calidad' => $this->char(1),
@@ -103,7 +103,7 @@ class m180830_184714_violencia_genero extends Migration
             'updated_by' => $this->integer()->notNull(),
         ], $tableOptions);
 
-        $this->addForeignKey('KF_cedulaviolencia_ruta_cedulas', 'cedulas_datos_generales_hijos', 'cedula_id', 'cedulas', 'id', 'RESTRICT', 'CASCADE');
+        $this->addForeignKey('KF_cedulaviolencia_ruta_cedulas', 'cedulas_violencia_genero_ruta', 'cedulas_violencia_genero_id', 'cedulas_violencia_genero', 'id', 'RESTRICT', 'CASCADE');
         $this->addForeignKey('FK_cedulaviolencia_ruta_user', 'cedulas_datos_generales_hijos', 'created_by', 'user', 'id', 'RESTRICT', 'CASCADE');
         $this->addForeignKey('FK_cedulaviolencia_ruta_user2', 'cedulas_datos_generales_hijos', 'updated_by', 'user', 'id', 'RESTRICT', 'CASCADE');
 

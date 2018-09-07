@@ -78,6 +78,7 @@ use yii\db\ActiveRecord;
  * @property ClugaresViolencias $lugarViolencia
  * @property User $createdBy
  * @property Cedulas $cedula
+ * @property CedulasViolenciaGeneroRuta[] $cedulasViolenciaGeneroRutas
  */
 class CedulasViolenciaGenero extends \yii\db\ActiveRecord
 {
@@ -228,5 +229,13 @@ class CedulasViolenciaGenero extends \yii\db\ActiveRecord
     public function getCedula()
     {
         return $this->hasOne(Cedulas::className(), ['id' => 'cedula_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCedulasViolenciaGeneroRutas()
+    {
+        return $this->hasMany(CedulasViolenciaGeneroRuta::className(), ['cedulas_violencia_genero_id' => 'id']);
     }
 }

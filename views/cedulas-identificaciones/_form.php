@@ -42,7 +42,7 @@ $this->registerJs($JS, $this::POS_READY);
 
     <?php $form = ActiveForm::begin();
 
-    echo $form->errorSummary([$model]);
+    echo $form->errorSummary([$model, $modelCedula]);
 
     ?>
     <?php

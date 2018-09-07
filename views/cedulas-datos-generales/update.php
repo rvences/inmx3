@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\CedulasDatosGenerales */
 
-$this->title = 'Update Cedulas Datos Generales: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Cedulas Datos Generales', 'url' => ['index']];
+$this->title = 'Actualizando Datos Generales de la Cédula: ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Cédulas Datos Generales', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Actualizando';
 ?>
 <div class="cedulas-datos-generales-update">
 
@@ -16,6 +16,8 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'modelsGH' => $modelsGH,
+        'modelCedula' => $modelCedula,
     ]) ?>
 
 </div>

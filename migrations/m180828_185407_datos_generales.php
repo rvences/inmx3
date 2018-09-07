@@ -26,8 +26,8 @@ class m180828_185407_datos_generales extends Migration
             'no_hijos' => $this->integer(),
             'vive_hijos' => $this->char(1),
             'edad_primer_embarazo' => $this->integer(),
-            'embarazo_violencia' => $this->integer(),
-            'madre_soltera' => $this->integer(),
+            'embarazo_violencia' => $this->char(1),
+            'madre_soltera' => $this->char(1),
             'madre_soltera_apartir_de_id' => $this->integer(),
             'embarazada_actualmente' => $this->char(1),
             'meses_embarazo' => $this->integer(),
@@ -42,9 +42,10 @@ class m180828_185407_datos_generales extends Migration
             'estado_civil_id' => $this->integer(),
             'convivencia_id' => $this->integer(),
             'vivienda_id' => $this->integer(),
-            'servicios_basicos_ids' => $this->integer(),
+            'servicios_basicos_ids' => $this->string(100),
             'nivel_estudio_id' => $this->integer(),
             'status_estudio_id' => $this->integer(),
+            'idioma' => $this->string(100),
             'ocupacion_ids' => $this->string(100),
             'fuente_ingresos_ids' => $this->string(100),
             'numero_jornadas' => $this->integer(),
@@ -89,7 +90,7 @@ class m180828_185407_datos_generales extends Migration
 
         $this->createTable('cedulas_datos_generales_hijos', [
             'id' => $this->primaryKey(),
-            'cedula_id' => $this->integer(), // Folio de la Cedula
+            'cedula_datos_generales_id' => $this->integer(), // Folio de la Cedula
             'hijo_edad' => $this->integer(),
             'hijo_sexo_id' => $this->integer(),
             'created_at' => $this->integer()->notNull(),
@@ -98,7 +99,7 @@ class m180828_185407_datos_generales extends Migration
             'updated_by' => $this->integer()->notNull(),
         ], $tableOptions);
 
-        $this->addForeignKey('KF_cedulas_datos_generales_hijos_cedulas', 'cedulas_datos_generales_hijos', 'cedula_id', 'cedulas', 'id', 'RESTRICT', 'CASCADE');
+        $this->addForeignKey('KF_cedulas_datos_generales_hijos_cedulas', 'cedulas_datos_generales_hijos', 'cedula_datos_generales_id', 'cedulas_datos_generales', 'id', 'RESTRICT', 'CASCADE');
         $this->addForeignKey('FK_cedulas_datos_generales_hijos_user', 'cedulas_datos_generales_hijos', 'created_by', 'user', 'id', 'RESTRICT', 'CASCADE');
         $this->addForeignKey('FK_cedulas_datos_generales_hijos_user2', 'cedulas_datos_generales_hijos', 'updated_by', 'user', 'id', 'RESTRICT', 'CASCADE');
 

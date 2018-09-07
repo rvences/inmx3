@@ -27,18 +27,11 @@ class CedulasIdentificacionesController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        // Establece que tiene permisos los vendedores
                         'allow' => true,
-                        // El usuario se le asignan permisos en las siguientes acciones
                         'actions' => ['create', 'view', 'update'],
-                        // Todos los usuarios autenticados
                         'roles' => ['@'],
-                        //Este método nos permite crear un filtro sobre la identidad del usuario
-                        //y así establecer si tiene permisos o no
                         'matchCallback' => function ($rule, $action) {
-                            //Llamada al método que comprueba si es un vendedor
                             return User::isUserTelefonico(Yii::$app->user->identity->id)  ;
-
                         },
                     ],
                 ],

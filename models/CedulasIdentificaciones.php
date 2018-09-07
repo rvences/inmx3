@@ -93,6 +93,7 @@ class CedulasIdentificaciones extends \yii\db\ActiveRecord
         return [
             [['created_at', 'created_by', 'updated_at', 'updated_by', 'hora_termino', 'hora_inicio',
                ], 'safe'],
+            [['tipificacion_ids', 'coorporacion_ids', 'tipoasesoria_ids', 'zona_riesgo_ids', 'horario_riesgo_ids'], 'string'],
 
             [['cedula_id', 'created_at', 'fecha_ult_incidente', 'tipo_llamada_id', 'tipo_emergencia_id', 'institucion_id', 'sexo_id', 'colonia_id', 'entidad_id', 'zona_id', 'congregacion_id', 'religion_id', 'nacionalidad_id', 'nivel_riesgo_id', 'created_by', 'relacion_parentezco_id', 'updated_at', 'updated_by'], 'integer'],
             [['fecha_ult_incidente'], 'safe'],

@@ -10,7 +10,7 @@ use yii\db\ActiveRecord;
  * This is the model class for table "cedulas_datos_generales_hijos".
  *
  * @property int $id
- * @property int $cedula_id
+ * @property int $cedula_datos_generales_id
  * @property int $hijo_edad
  * @property int $hijo_sexo_id
  * @property int $created_at
@@ -20,7 +20,9 @@ use yii\db\ActiveRecord;
  *
  * @property User $updatedBy
  * @property User $createdBy
- * @property Cedulas $cedula
+ * @property User $updatedBy0
+ * @property User $createdBy0
+ * @property CedulasDatosGenerales $cedulaDatosGenerales
  */
 class CedulasDatosGeneralesHijos extends \yii\db\ActiveRecord
 {
@@ -38,12 +40,11 @@ class CedulasDatosGeneralesHijos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cedula_id', 'hijo_edad', 'hijo_sexo_id', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
-            [['created_at', 'created_by', 'updated_at', 'updated_by'], 'required'],
+            [['created_at', 'created_by', 'updated_at', 'updated_by'], 'safe'],
+            [['cedula_datos_generales_id', 'hijo_edad', 'hijo_sexo_id', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
-            [['cedula_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cedulas::className(), 'targetAttribute' => ['cedula_id' => 'id']],
-        ];
+            [['cedula_datos_generales_id'], 'exist', 'skipOnError' => true, 'targetClass' => CedulasDatosGenerales::className(), 'targetAttribute' => ['cedula_datos_generales_id' => 'id']],        ];
     }
 
     /**
@@ -100,8 +101,8 @@ class CedulasDatosGeneralesHijos extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCedula()
+    public function getCedulaDatosGenerales()
     {
-        return $this->hasOne(Cedulas::className(), ['id' => 'cedula_id']);
+        return $this->hasOne(CedulasDatosGenerales::className(), ['id' => 'cedula_datos_generales_id']);
     }
 }

@@ -15,12 +15,18 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 <div class="cedulas-datos-generales-form">
 
+    <?php
+    ?>
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']);
-    echo $form->errorSummary([$model]);
+    echo $form->errorSummary([$model, $modelCedula]);
 
+    $model->cedula_id = $modelCedula->id;
     ?>
 
+    <?= $form->field($model, 'cedula_id')->hiddenInput()->label(false) ?>
+
     <?php
+
     /*
     <?= $form->field($model, 'cedula_id')->textInput() ?>
     <?= $form->field($model, 'created_at')->textInput() ?>
@@ -60,14 +66,13 @@ use wbraganca\dynamicform\DynamicFormWidget;
             <?= $form->field($model, 'no_hijos')->textInput(['maxlength' => true, 'placeholder' => 'Núm. Hijos(as)'])->label(false) ?>
         </div>
     </div>
-
     <div class="row">
         <?php DynamicFormWidget::begin([
             'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
             'widgetBody' => '.container-items', // required: css class selector
             'widgetItem' => '.item', // required: css class
             'limit' => 13, // the maximum times, an element can be added (default 999)
-            'min' => 1, // 0 or 1 (default 1)
+            'min' => 0, // 0 or 1 (default 1)
             'insertButton' => '.add-item', // css class
             'deleteButton' => '.remove-item', // css class
             'model' => $modelsGH[0],
@@ -98,15 +103,14 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                         <?= $form->field($modelGH, "[{$i}]hijo_edad")->textInput(['maxlength' => true, 'placeholder' => 'Edad'])->label(false) ?>
                                     </div>
                                     <div class="col-md-4">
-                                        <?php
-                                        echo $form->field($modelGH, "[{$i}]hijo_sexo_id")->widget(Select2::classname(), [
-                                            'data' => ArrayHelper::map(\app\models\Csexos::find()->all(), 'id', 'sexo'),
-                                            'options' => ['placeholder' => 'Sexo ...'],
-                                            'pluginOptions' => [
-                                                'allowClear' => true
-                                            ],
-                                        ])->label(false);
+
+
+                                        <?php $lista = ArrayHelper::map(\app\models\Csexos::find()->asArray()->all(), 'id', 'sexo');
+                                        echo $form->field($modelGH, "[{$i}]hijo_sexo_id")->dropDownList($lista, ['prompt' => '[Selecciona]'])->label(false);
                                         ?>
+
+
+
                                     </div>
                                     <div class="col-md-4">
                                         <button type="button" class="remove-item btn btn-danger "><i class="glyphicon glyphicon-minus"></i> Eliminar</button>
@@ -125,8 +129,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
         <?php DynamicFormWidget::end(); ?>
 
     </div>
-
-
     <div class="row">
         <div class="col-md-4">
             <?php $data = ['S' => 'Si', 'N' => 'No', 'A' => 'Algunos(as)'];
@@ -257,7 +259,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
             ?>
         </div>
         <div class="col-md-4">
-            <?php
+           <?php
             echo $form->field($model, 'servicios_basicos_ids')->widget(Select2::classname(), [
                 'data' => ArrayHelper::map(\app\models\CserviciosBasicos::find()->all(), 'id', 'servicio_basico'),
                 'options' => [
@@ -270,7 +272,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
             ])->label(false);
             ?>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <?php
             echo $form->field($model, 'nivel_estudio_id')->widget(Select2::classname(), [
                 'data' => ArrayHelper::map(\app\models\CnivelesEstudios::find()->all(), 'id', 'nivel_estudio'),
@@ -282,7 +284,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
             ?>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-2">
             <?php
             echo $form->field($model, 'status_estudio_id')->widget(Select2::classname(), [
                 'data' => ArrayHelper::map(\app\models\CstatusEstudios::find()->all(), 'id', 'status_estudio'),
@@ -292,6 +294,9 @@ use wbraganca\dynamicform\DynamicFormWidget;
                 ],
             ])->label(false);
             ?>
+        </div>
+        <div class ="col-md-2">
+            <?= $form->field($model, 'idioma')->textInput(['maxlength' => true, 'placeholder' => 'Idioma'])->label(false) ?>
         </div>
 
     </div>

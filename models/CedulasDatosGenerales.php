@@ -17,8 +17,8 @@ use yii\db\ActiveRecord;
  * @property int $no_hijos
  * @property string $vive_hijos
  * @property int $edad_primer_embarazo
- * @property int $embarazo_violencia
- * @property int $madre_soltera
+ * @property string $embarazo_violencia
+ * @property string $madre_soltera
  * @property int $madre_soltera_apartir_de_id
  * @property string $embarazada_actualmente
  * @property int $meses_embarazo
@@ -36,6 +36,7 @@ use yii\db\ActiveRecord;
  * @property int $servicios_basicos_ids
  * @property int $nivel_estudio_id
  * @property int $status_estudio_id
+ * @property string $idioma
  * @property string $ocupacion_ids
  * @property string $fuente_ingresos_ids
  * @property int $numero_jornadas
@@ -73,6 +74,7 @@ use yii\db\ActiveRecord;
  * @property Csexos $mortalidadHijoSexo
  * @property User $createdBy
  * @property Cedulas $cedula
+ * @property CedulasDatosGeneralesHijos[] $cedulasDatosGeneralesHijos
  */
 class CedulasDatosGenerales extends \yii\db\ActiveRecord
 {
@@ -90,12 +92,16 @@ class CedulasDatosGenerales extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cedula_id', 'edad', 'no_hijos', 'edad_primer_embarazo', 'embarazo_violencia', 'madre_soltera', 'madre_soltera_apartir_de_id', 'meses_embarazo', 'no_gestaciones', 'mortalidad_hijo_edad', 'mortalidad_hijo_sexo_id', 'estado_civil_id', 'convivencia_id', 'vivienda_id', 'servicios_basicos_ids', 'nivel_estudio_id', 'status_estudio_id', 'numero_jornadas', 'numero_ingresos', 'horas_labor_hogar', 'horas_cuidado_otros', 'horas_trabajo', 'horas_recreacion', 'horas_autocuidado', 'horas_descanso', 'horas_autoempleo', 'ingreso_mensual', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
+            [['created_at', 'created_by', 'updated_at', 'updated_by'], 'safe'],
+            [['cedula_id', 'edad', 'no_hijos', 'edad_primer_embarazo', 'madre_soltera_apartir_de_id', 'meses_embarazo', 'no_gestaciones', 'mortalidad_hijo_edad', 'mortalidad_hijo_sexo_id', 'estado_civil_id', 'convivencia_id', 'vivienda_id', 'nivel_estudio_id', 'status_estudio_id', 'numero_jornadas', 'numero_ingresos', 'horas_labor_hogar', 'horas_cuidado_otros', 'horas_trabajo', 'horas_recreacion', 'horas_autocuidado', 'horas_descanso', 'horas_autoempleo', 'ingreso_mensual', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
+            //[['servicios_basicos_ids', 'ocupacion_ids', 'fuente_ingresos_ids', 'programas_sociales_ids', 'servicios_medicos_ids',
+            // 'padece_enfermedades_ids', 'autocuidado_ids', 'padece_discapacidades_ids'], 'safe'],
+
+
             [['fecha_nac'], 'safe'],
             [['observaciones'], 'string'],
-            [['created_at', 'created_by', 'updated_at', 'updated_by'], 'required'],
-            [['grupo_etnico', 'vive_hijos', 'embarazada_actualmente', 'violencia_obstetrica', 'denuncio', 'mortalidad_hijo', 'servidor_publico', 'autocuidado'], 'string', 'max' => 1],
-            [['violencia_obstetrica_institucion', 'ocupacion_ids', 'fuente_ingresos_ids', 'quien_administra_dinero', 'servidor_publico_cargo', 'servidor_publico_institucion', 'programas_sociales_ids', 'servicios_medicos_ids', 'padece_enfermedades_ids', 'autocuidado_ids', 'padece_discapacidades_ids'], 'string', 'max' => 100],
+            [['grupo_etnico', 'vive_hijos', 'embarazo_violencia', 'madre_soltera', 'embarazada_actualmente', 'violencia_obstetrica', 'denuncio', 'mortalidad_hijo', 'servidor_publico', 'autocuidado'], 'string', 'max' => 1],
+            [['violencia_obstetrica_institucion', 'idioma', 'quien_administra_dinero', 'servidor_publico_cargo', 'servidor_publico_institucion'], 'string', 'max' => 100],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
             [['madre_soltera_apartir_de_id'], 'exist', 'skipOnError' => true, 'targetClass' => CmadresSolterasApartirDe::className(), 'targetAttribute' => ['madre_soltera_apartir_de_id' => 'id']],
             [['vivienda_id'], 'exist', 'skipOnError' => true, 'targetClass' => CtiposViviendas::className(), 'targetAttribute' => ['vivienda_id' => 'id']],
@@ -116,58 +122,59 @@ class CedulasDatosGenerales extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'cedula_id' => 'Cedula ID',
+            'cedula_id' => 'ID de la Cédula',
             'edad' => 'Edad',
-            'fecha_nac' => 'Fecha Nac',
-            'grupo_etnico' => 'Grupo Etnico',
-            'no_hijos' => 'No Hijos',
+            'fecha_nac' => 'Fecha de Nacimiento',
+            'grupo_etnico' => 'Grupo étnico',
+            'no_hijos' => 'No Hijas(os)',
             'vive_hijos' => '¿Vive con sus hijas(os)',
-            'edad_primer_embarazo' => 'Edad Primer Embarazo',
+            'edad_primer_embarazo' => '¿Edad primer embarazo?',
             'embarazo_violencia' => 'Embarazo por violencia sexual',
-            'madre_soltera' => 'Madre Soltera',
-            'madre_soltera_apartir_de_id' => 'Madre Soltera Apartir De ID',
-            'embarazada_actualmente' => 'Embarazada Actualmente',
-            'meses_embarazo' => 'Meses Embarazo',
-            'violencia_obstetrica' => 'Violencia Obstetrica',
-            'violencia_obstetrica_institucion' => 'Violencia Obstetrica Institucion',
-            'denuncio' => 'Denuncio',
-            'no_gestaciones' => 'No Gestaciones',
+            'madre_soltera' => 'Madre soltera',
+            'madre_soltera_apartir_de_id' => 'Madre soltera a partir de',
+            'embarazada_actualmente' => 'Actualmente esta embarazada',
+            'meses_embarazo' => 'Meses de embarazo',
+            'violencia_obstetrica' => 'Violencia obstétrica',
+            'violencia_obstetrica_institucion' => 'Institución con violencia obstétrica',
+            'denuncio' => 'Denunció',
+            'no_gestaciones' => 'No gestaciones',
             'mortalidad_hijo' => 'Mortalidad de hijas(os)',
-            'mortalidad_hijo_edad' => 'Mortalidad Hijo Edad',
-            'mortalidad_hijo_sexo_id' => 'Mortalidad Hijo Sexo ID',
+            'mortalidad_hijo_edad' => 'Mortalidad hijo hdad',
+            'mortalidad_hijo_sexo_id' => 'Mortalidad hijo sexo',
             'observaciones' => 'Observaciones',
-            'estado_civil_id' => 'Estado Civil ID',
-            'convivencia_id' => 'Convivencia ID',
-            'vivienda_id' => 'Vivienda ID',
-            'servicios_basicos_ids' => 'Servicios Basicos Ids',
-            'nivel_estudio_id' => 'Nivel Estudio ID',
-            'status_estudio_id' => 'Status Estudio ID',
-            'ocupacion_ids' => 'Ocupacion Ids',
-            'fuente_ingresos_ids' => 'Fuente Ingresos Ids',
-            'numero_jornadas' => 'Numero Jornadas',
-            'numero_ingresos' => 'Numero Ingresos',
-            'horas_labor_hogar' => 'Horas Labor Hogar',
-            'horas_cuidado_otros' => 'Horas Cuidado Otros',
-            'horas_trabajo' => 'Horas Trabajo',
-            'horas_recreacion' => 'Horas Recreacion',
-            'horas_autocuidado' => 'Horas Autocuidado',
-            'horas_descanso' => 'Horas Descanso',
-            'horas_autoempleo' => 'Horas Autoempleo',
-            'ingreso_mensual' => 'Ingreso Mensual',
-            'quien_administra_dinero' => 'Quien Administra Dinero',
-            'servidor_publico' => 'Servidor Publico',
-            'servidor_publico_cargo' => 'Servidor Publico Cargo',
-            'servidor_publico_institucion' => 'Servidor Publico Institucion',
-            'programas_sociales_ids' => 'Programas Sociales Ids',
-            'servicios_medicos_ids' => 'Servicios Medicos Ids',
-            'padece_enfermedades_ids' => 'Padece Enfermedades Ids',
+            'estado_civil_id' => 'Estado civil',
+            'convivencia_id' => 'Convivencia',
+            'vivienda_id' => 'Vivienda',
+            'servicios_basicos_ids' => 'Servicios básicos',
+            'nivel_estudio_id' => 'Nivel de estudios',
+            'status_estudio_id' => 'Estatus de estudios',
+            'idioma' => 'Idioma',
+            'ocupacion_ids' => 'Ocupaciones',
+            'fuente_ingresos_ids' => 'Fuente de ingresos',
+            'numero_jornadas' => 'Número de jornadas',
+            'numero_ingresos' => 'Número de ingresos',
+            'horas_labor_hogar' => 'Horas invertidas en labores de hogar',
+            'horas_cuidado_otros' => 'Horas invertidas en cuidado de otras personas',
+            'horas_trabajo' => 'Horas invertidas en trabajo',
+            'horas_recreacion' => 'Horas invertidas en recreación',
+            'horas_autocuidado' => 'Horas invertidas en autocuidado',
+            'horas_descanso' => 'Horas invertidas en descanso',
+            'horas_autoempleo' => 'Horas invertidas en autoempleo',
+            'ingreso_mensual' => 'Ingreso mensual',
+            'quien_administra_dinero' => '¿Quién administra su dinero?',
+            'servidor_publico' => 'Servidor(a) público(a)',
+            'servidor_publico_cargo' => 'Cargo de servidor público',
+            'servidor_publico_institucion' => 'Institución del servidor público',
+            'programas_sociales_ids' => 'Programas Sociales',
+            'servicios_medicos_ids' => 'Servicios Médicos',
+            'padece_enfermedades_ids' => 'Padece alguna enfermedad',
             'autocuidado' => 'Autocuidado',
-            'autocuidado_ids' => 'Autocuidado Ids',
-            'padece_discapacidades_ids' => 'Padece Discapacidades Ids',
-            'created_at' => 'Created At',
-            'created_by' => 'Created By',
-            'updated_at' => 'Updated At',
-            'updated_by' => 'Updated By',
+            'autocuidado_ids' => 'Autocuidado ¿Cuál?',
+            'padece_discapacidades_ids' => 'Padece discapacidad',
+            'created_at' => 'Fecha de Creación',
+            'created_by' => 'Creado por',
+            'updated_at' => 'Fecha de Actualización',
+            'updated_by' => 'Actualizado por',
         ];
     }
 
@@ -267,5 +274,13 @@ class CedulasDatosGenerales extends \yii\db\ActiveRecord
     public function getCedula()
     {
         return $this->hasOne(Cedulas::className(), ['id' => 'cedula_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCedulasDatosGeneralesHijos()
+    {
+        return $this->hasMany(CedulasDatosGeneralesHijos::className(), ['cedula_datos_generales_id' => 'id']);
     }
 }

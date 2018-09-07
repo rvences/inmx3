@@ -10,7 +10,7 @@ use yii\db\ActiveRecord;
  * This is the model class for table "cedulas_violencia_genero_ruta".
  *
  * @property int $id
- * @property int $cedula_id
+ * @property int $cedulas_violencia_genero_id
  * @property string $institucion
  * @property string $servicio
  * @property string $calidad
@@ -35,10 +35,11 @@ class CedulasViolenciaGeneroRuta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cedula_id', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
+            [['cedulas_violencia_genero_id', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['created_at', 'created_by', 'updated_at', 'updated_by'], 'required'],
             [['institucion', 'servicio'], 'string', 'max' => 100],
             [['calidad'], 'string', 'max' => 1],
+            [['cedulas_violencia_genero_id'], 'exist', 'skipOnError' => true, 'targetClass' => CedulasViolenciaGenero::className(), 'targetAttribute' => ['cedulas_violencia_genero_id' => 'id']],
         ];
     }
 
@@ -49,7 +50,7 @@ class CedulasViolenciaGeneroRuta extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'cedula_id' => 'Cedula ID',
+            'cedulas_violencia_genero_id' => 'Cedulas Violencia Genero ID',
             'institucion' => 'Institucion',
             'servicio' => 'Servicio',
             'calidad' => 'Calidad',
@@ -58,5 +59,13 @@ class CedulasViolenciaGeneroRuta extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'updated_by' => 'Updated By',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCedulasViolenciaGenero()
+    {
+        return $this->hasOne(CedulasViolenciaGenero::className(), ['id' => 'cedulas_violencia_genero_id']);
     }
 }
