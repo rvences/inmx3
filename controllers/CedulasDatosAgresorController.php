@@ -83,34 +83,34 @@ class CedulasDatosAgresorController extends Controller
         $valor_cedula_temporal = 1;
         $cedula = Cedulas::find()->where(['id' => $valor_cedula_temporal])->one();
 
-        $model = new CedulasDatosAgresor();
+        $modelDatosAgresor = new CedulasDatosAgresor();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($modelDatosAgresor->load(Yii::$app->request->post()) && $modelDatosAgresor->save()) {
 
-            $model->servicios_basicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['servicios_basicos_ids']);
-            $model->ocupacion_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['ocupacion_ids']);
-            $model->fuente_ingresos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['fuente_ingresos_ids']);
-            $model->programas_sociales_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['programas_sociales_ids']);
-            $model->servicios_medicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['servicios_medicos_ids']);
-            $model->padece_discapacidades_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['padece_discapacidades_ids']);
-            $model->lesion_fisica_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['lesion_fisica_ids']);
-            $model->lesion_agente_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['lesion_agente_ids']);
-            $model->lesion_area_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['lesion_area_ids']);
-            $model->danos_psicologicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['danos_psicologicos_ids']);
-            $model->danos_economicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['danos_economicos_ids']);
-            $model->indicador_riesgo_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['indicador_riesgo_ids']);
-            $model->tipo_seguimiento_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['tipo_seguimiento_ids']);
+            $modelDatosAgresor->servicios_basicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['servicios_basicos_ids']);
+            $modelDatosAgresor->ocupacion_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['ocupacion_ids']);
+            $modelDatosAgresor->fuente_ingresos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['fuente_ingresos_ids']);
+            $modelDatosAgresor->programas_sociales_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['programas_sociales_ids']);
+            $modelDatosAgresor->servicios_medicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['servicios_medicos_ids']);
+            $modelDatosAgresor->padece_discapacidades_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['padece_discapacidades_ids']);
+            $modelDatosAgresor->lesion_fisica_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['lesion_fisica_ids']);
+            $modelDatosAgresor->lesion_agente_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['lesion_agente_ids']);
+            $modelDatosAgresor->lesion_area_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['lesion_area_ids']);
+            $modelDatosAgresor->danos_psicologicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['danos_psicologicos_ids']);
+            $modelDatosAgresor->danos_economicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['danos_economicos_ids']);
+            $modelDatosAgresor->indicador_riesgo_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['indicador_riesgo_ids']);
+            $modelDatosAgresor->tipo_seguimiento_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['tipo_seguimiento_ids']);
 
-            $model->save();
+            $modelDatosAgresor->save();
 
 
-            return $this->redirect(['update', 'id' => $model->id]);
+            return $this->redirect(['update', 'id' => $modelDatosAgresor->id]);
 
-            //return $this->redirect(['view', 'id' => $model->id]);
+            //return $this->redirect(['view', 'id' => $modelDatosAgresor->id]);
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'modelDatosAgresor' => $modelDatosAgresor,
             'modelCedula' => $cedula,
 
         ]);
@@ -125,44 +125,44 @@ class CedulasDatosAgresorController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-        $modelCedula = Cedulas::find()->where(['id' => $model->cedula_id])->one();
+        $modelDatosAgresor = $this->findModel($id);
+        $modelCedula = Cedulas::find()->where(['id' => $modelDatosAgresor->cedula_id])->one();
 
-        if ($model->load(Yii::$app->request->post()) ) {
-            $model->servicios_basicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['servicios_basicos_ids']);
-            $model->ocupacion_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['ocupacion_ids']);
-            $model->fuente_ingresos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['fuente_ingresos_ids']);
-            $model->programas_sociales_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['programas_sociales_ids']);
-            $model->servicios_medicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['servicios_medicos_ids']);
-            $model->padece_discapacidades_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['padece_discapacidades_ids']);
-            $model->lesion_fisica_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['lesion_fisica_ids']);
-            $model->lesion_agente_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['lesion_agente_ids']);
-            $model->lesion_area_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['lesion_area_ids']);
-            $model->danos_psicologicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['danos_psicologicos_ids']);
-            $model->danos_economicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['danos_economicos_ids']);
-            $model->indicador_riesgo_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['indicador_riesgo_ids']);
-            $model->tipo_seguimiento_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['tipo_seguimiento_ids']);
+        if ($modelDatosAgresor->load(Yii::$app->request->post()) ) {
+            $modelDatosAgresor->servicios_basicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['servicios_basicos_ids']);
+            $modelDatosAgresor->ocupacion_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['ocupacion_ids']);
+            $modelDatosAgresor->fuente_ingresos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['fuente_ingresos_ids']);
+            $modelDatosAgresor->programas_sociales_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['programas_sociales_ids']);
+            $modelDatosAgresor->servicios_medicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['servicios_medicos_ids']);
+            $modelDatosAgresor->padece_discapacidades_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['padece_discapacidades_ids']);
+            $modelDatosAgresor->lesion_fisica_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['lesion_fisica_ids']);
+            $modelDatosAgresor->lesion_agente_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['lesion_agente_ids']);
+            $modelDatosAgresor->lesion_area_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['lesion_area_ids']);
+            $modelDatosAgresor->danos_psicologicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['danos_psicologicos_ids']);
+            $modelDatosAgresor->danos_economicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['danos_economicos_ids']);
+            $modelDatosAgresor->indicador_riesgo_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['indicador_riesgo_ids']);
+            $modelDatosAgresor->tipo_seguimiento_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['tipo_seguimiento_ids']);
 
-            $model->save();
-            return $this->redirect(['update', 'id' => $model->id]);
+            $modelDatosAgresor->save();
+            return $this->redirect(['update', 'id' => $modelDatosAgresor->id]);
         }
 
-        $model->servicios_basicos_ids = json_decode($model->servicios_basicos_ids);
-        $model->ocupacion_ids = json_decode($model->ocupacion_ids);
-        $model->fuente_ingresos_ids = json_decode($model->fuente_ingresos_ids);
-        $model->programas_sociales_ids = json_decode($model->programas_sociales_ids);
-        $model->servicios_medicos_ids = json_decode($model->servicios_medicos_ids);
-        $model->padece_discapacidades_ids = json_decode($model->padece_discapacidades_ids);
-        $model->lesion_fisica_ids = json_decode($model->lesion_fisica_ids);
-        $model->lesion_agente_ids = json_decode($model->lesion_agente_ids);
-        $model->lesion_area_ids = json_decode($model->lesion_area_ids);
-        $model->danos_psicologicos_ids = json_decode($model->danos_psicologicos_ids);
-        $model->danos_economicos_ids = json_decode($model->danos_economicos_ids);
-        $model->indicador_riesgo_ids = json_decode($model->indicador_riesgo_ids);
-        $model->tipo_seguimiento_ids = json_decode($model->tipo_seguimiento_ids);
+        $modelDatosAgresor->servicios_basicos_ids = json_decode($modelDatosAgresor->servicios_basicos_ids);
+        $modelDatosAgresor->ocupacion_ids = json_decode($modelDatosAgresor->ocupacion_ids);
+        $modelDatosAgresor->fuente_ingresos_ids = json_decode($modelDatosAgresor->fuente_ingresos_ids);
+        $modelDatosAgresor->programas_sociales_ids = json_decode($modelDatosAgresor->programas_sociales_ids);
+        $modelDatosAgresor->servicios_medicos_ids = json_decode($modelDatosAgresor->servicios_medicos_ids);
+        $modelDatosAgresor->padece_discapacidades_ids = json_decode($modelDatosAgresor->padece_discapacidades_ids);
+        $modelDatosAgresor->lesion_fisica_ids = json_decode($modelDatosAgresor->lesion_fisica_ids);
+        $modelDatosAgresor->lesion_agente_ids = json_decode($modelDatosAgresor->lesion_agente_ids);
+        $modelDatosAgresor->lesion_area_ids = json_decode($modelDatosAgresor->lesion_area_ids);
+        $modelDatosAgresor->danos_psicologicos_ids = json_decode($modelDatosAgresor->danos_psicologicos_ids);
+        $modelDatosAgresor->danos_economicos_ids = json_decode($modelDatosAgresor->danos_economicos_ids);
+        $modelDatosAgresor->indicador_riesgo_ids = json_decode($modelDatosAgresor->indicador_riesgo_ids);
+        $modelDatosAgresor->tipo_seguimiento_ids = json_decode($modelDatosAgresor->tipo_seguimiento_ids);
 
         return $this->render('update', [
-            'model' => $model,
+            'modelDatosAgresor' => $modelDatosAgresor,
             'modelCedula' => $modelCedula
 
         ]);
@@ -191,8 +191,8 @@ class CedulasDatosAgresorController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = CedulasDatosAgresor::findOne($id)) !== null) {
-            return $model;
+        if (($modelDatosAgresor = CedulasDatosAgresor::findOne($id)) !== null) {
+            return $modelDatosAgresor;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');

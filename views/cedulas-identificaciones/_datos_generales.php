@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use kartik\form\ActiveForm;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
 use yii\helpers\ArrayHelper;
@@ -15,27 +14,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 <div class="cedulas-datos-generales-form">
 
-    <?php
-    ?>
-    <?php $form = ActiveForm::begin(['id' => 'dynamic-form']);
-    echo $form->errorSummary([$modelDatosGenerales, $modelCedula]);
-
-    $modelDatosGenerales->cedula_id = $modelCedula->id;
-    ?>
-
-    <?= $form->field($modelDatosGenerales, 'cedula_id')->hiddenInput()->label(false) ?>
-
-    <?php
-
-    /*
-    <?= $form->field($modelDatosGenerales, 'cedula_id')->textInput() ?>
-    <?= $form->field($modelDatosGenerales, 'created_at')->textInput() ?>
-    <?= $form->field($modelDatosGenerales, 'created_by')->textInput() ?>
-    <?= $form->field($modelDatosGenerales, 'updated_at')->textInput() ?>
-    <?= $form->field($modelDatosGenerales, 'updated_by')->textInput() ?>
-
-     * */
-    ?>
 
     <div class="row">
         <div class ="col-md-2">
@@ -476,11 +454,5 @@ use wbraganca\dynamicform\DynamicFormWidget;
     </div>
 
 
-
-    <div class="form-group">
-        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
 
 </div>

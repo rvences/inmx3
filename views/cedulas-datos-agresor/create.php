@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="cedulas-datos-agresor-create">
 
     <?= $this->render('_form', [
-        'model' => $model,
+        'modelDatosAgresor' => $modelDatosAgresor,
         'modelCedula' => $modelCedula,
     ]) ?>
 

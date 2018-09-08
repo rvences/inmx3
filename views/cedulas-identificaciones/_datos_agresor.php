@@ -1,7 +1,4 @@
 <?php
-
-use yii\helpers\Html;
-use kartik\form\ActiveForm;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
 use yii\helpers\ArrayHelper;
@@ -13,23 +10,6 @@ use yii\helpers\ArrayHelper;
 
 <div class="cedulas-datos-agresor-form">
 
-    <?php $form = ActiveForm::begin();
-    echo $form->errorSummary([$modelDatosAgresor, $modelCedula]);
-
-    $modelDatosAgresor->cedula_id = $modelCedula->id;
-    ?>
-
-    <?= $form->field($modelDatosAgresor, 'cedula_id')->hiddenInput()->label(false) ?>
-
-    <?php
-    /*
-    <?= $form->field($modelDatosAgresor, 'cedula_id')->textInput() ?>
-    <?= $form->field($modelDatosAgresor, 'created_at')->textInput() ?>
-    <?= $form->field($modelDatosAgresor, 'created_by')->textInput() ?>
-    <?= $form->field($modelDatosAgresor, 'updated_at')->textInput() ?>
-    <?= $form->field($modelDatosAgresor, 'updated_by')->textInput() ?>
-     */
-    ?>
     <div class="row">
         <div class="col-md-2">
             <?= $form->field($modelDatosAgresor, 'numero_agresores')->textInput(['maxlength' => true, 'placeholder' => 'Núm de agresores'])->label(false) ?>
@@ -546,14 +526,5 @@ use yii\helpers\ArrayHelper;
             <?= $form->field($modelDatosAgresor, 'banesvim')->textInput(['maxlength' => true, 'placeholder'=> 'Folio BANESVIM'])->label(false) ?>
         </div>
     </div>
-
-
-
-
-    <div class="form-group">
-        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
 
 </div>

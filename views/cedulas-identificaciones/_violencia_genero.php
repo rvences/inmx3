@@ -1,9 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use kartik\form\ActiveForm;
 use kartik\widgets\Select2;
-use kartik\widgets\DatePicker;
 use yii\helpers\ArrayHelper;
 use wbraganca\dynamicform\DynamicFormWidget;
 
@@ -14,25 +12,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
 ?>
 
 <div class="cedulas-violencia-genero-form">
-
-    <?php $form = ActiveForm::begin(['id' => 'dynamic-form']);
-    echo $form->errorSummary([$modelViolenciaGenero, $modelCedula]);
-    $modelViolenciaGenero->cedula_id = $modelCedula->id;
-
-    ?>
-    <?= $form->field($modelViolenciaGenero, 'cedula_id')->hiddenInput()->label(false) ?>
-
-    <?php
-    /*
-    <?= $form->field($modelViolenciaGenero, 'cedula_id')->textInput() ?>
-    <?= $form->field($modelViolenciaGenero, 'created_at')->textInput() ?>
-    <?= $form->field($modelViolenciaGenero, 'created_by')->textInput() ?>
-    <?= $form->field($modelViolenciaGenero, 'updated_at')->textInput() ?>
-    <?= $form->field($modelViolenciaGenero, 'updated_by')->textInput() ?>
-
-     */
-    ?>
-
     <div class="row">
         <div class="col-md-3">
             <?php $data = ['DIRECTA' => 'Directa', 'INDIRECTA' => 'Indirecta'];
@@ -280,13 +259,13 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     <div class="row">
         <?php DynamicFormWidget::begin([
-            'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
-            'widgetBody' => '.container-items', // required: css class selector
-            'widgetItem' => '.item', // required: css class
+            'widgetContainer' => 'dynamicform_violencia', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+            'widgetBody' => '.container-items-violencia', // required: css class selector
+            'widgetItem' => '.item-violencia', // required: css class
             'limit' => 4, // the maximum times, an element can be added (default 999)
             'min' => 0, // 0 or 1 (default 1)
-            'insertButton' => '.add-item', // css class
-            'deleteButton' => '.remove-item', // css class
+            'insertButton' => '.add-item-violencia', // css class
+            'deleteButton' => '.remove-item-violencia', // css class
             'model' => $modelsGR[0],
             'formId' => 'dynamic-form',
             'formFields' => [
@@ -299,17 +278,17 @@ use wbraganca\dynamicform\DynamicFormWidget;
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h5>
-                    <button type="button" class="add-item btn btn-success btn-sm"><i class="glyphicon glyphicon-plus"></i> Agregar</button>
+                    <button type="button" class="add-item-violencia btn btn-success btn-sm"><i class="glyphicon glyphicon-plus"></i> Agregar</button>
                 </h5>
             </div>
             <div class="panel-body">
-                <div class="container-items"><!-- widgetBody -->
+                <div class="container-items-violencia"><!-- widgetBody -->
                     <?php foreach ($modelsGR as $i => $modelGR): ?>
-                        <div class="item panel panel-default"><!-- widgetItem -->
+                        <div class="item-violencia panel panel-default"><!-- widgetItem -->
                             <div class="panel-heading">
                                 <h3 class="panel-title pull-left">Ruta Crítica</h3>
                                 <div class="pull-right">
-                                    <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i> Eliminar</button>
+                                    <button type="button" class="remove-item-violencia btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i> Eliminar</button>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -538,13 +517,5 @@ use wbraganca\dynamicform\DynamicFormWidget;
             <?= $form->field($modelViolenciaGenero, 'alcance_resultados')->textarea(['rows' => 6]) ?>
         </div>
     </div>
-
-
-
-    <div class="form-group">
-        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
 
 </div>

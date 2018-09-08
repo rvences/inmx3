@@ -13,6 +13,9 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'session' => array(
+            'timeout' => 60*60*24*7,
+        ),
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

@@ -87,29 +87,29 @@ class CedulasDatosGeneralesController extends Controller
         $valor_cedula_temporal = 1;
         $cedula = Cedulas::find()->where(['id' => $valor_cedula_temporal])->one();
 
-        $model = new CedulasDatosGenerales();
+        $modelDatosGenerales = new CedulasDatosGenerales();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($modelDatosGenerales->load(Yii::$app->request->post()) && $modelDatosGenerales->save()) {
 
-            $model->servicios_basicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['servicios_basicos_ids']);
-            $model->ocupacion_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['ocupacion_ids']);
-            $model->fuente_ingresos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['fuente_ingresos_ids']);
-            $model->programas_sociales_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['programas_sociales_ids']);
-            $model->servicios_medicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['servicios_medicos_ids']);
-            $model->padece_enfermedades_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['padece_enfermedades_ids']);
-            $model->autocuidado_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['autocuidado_ids']);
-            $model->padece_discapacidades_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['padece_discapacidades_ids']);
+            $modelDatosGenerales->servicios_basicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['servicios_basicos_ids']);
+            $modelDatosGenerales->ocupacion_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['ocupacion_ids']);
+            $modelDatosGenerales->fuente_ingresos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['fuente_ingresos_ids']);
+            $modelDatosGenerales->programas_sociales_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['programas_sociales_ids']);
+            $modelDatosGenerales->servicios_medicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['servicios_medicos_ids']);
+            $modelDatosGenerales->padece_enfermedades_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['padece_enfermedades_ids']);
+            $modelDatosGenerales->autocuidado_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['autocuidado_ids']);
+            $modelDatosGenerales->padece_discapacidades_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['padece_discapacidades_ids']);
 
-            $model->save();
+            $modelDatosGenerales->save();
 
 
-            return $this->redirect(['update', 'id' => $model->id]);
+            return $this->redirect(['update', 'id' => $modelDatosGenerales->id]);
 
-            //return $this->redirect(['view', 'id' => $model->id]);
+            //return $this->redirect(['view', 'id' => $modelDatosGenerales->id]);
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'modelDatosGenerales' => $modelDatosGenerales,
             'modelsGH' => (empty($modelsGH)) ? [new CedulasDatosGeneralesHijos()] : $modelsGH,
             'modelCedula' => $cedula,
         ]);
@@ -124,20 +124,20 @@ class CedulasDatosGeneralesController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-        $modelCedula = Cedulas::find()->where(['id' => $model->cedula_id])->one();
+        $modelDatosGenerales = $this->findModel($id);
+        $modelCedula = Cedulas::find()->where(['id' => $modelDatosGenerales->cedula_id])->one();
 
-        $modelsGH = $model->cedulasDatosGeneralesHijos;
+        $modelsGH = $modelDatosGenerales->cedulasDatosGeneralesHijos;
 
-        if ($model->load(Yii::$app->request->post()) ) {
-            $model->servicios_basicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['servicios_basicos_ids']);
-            $model->ocupacion_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['ocupacion_ids']);
-            $model->fuente_ingresos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['fuente_ingresos_ids']);
-            $model->programas_sociales_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['programas_sociales_ids']);
-            $model->servicios_medicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['servicios_medicos_ids']);
-            $model->padece_enfermedades_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['padece_enfermedades_ids']);
-            $model->autocuidado_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['autocuidado_ids']);
-            $model->padece_discapacidades_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['padece_discapacidades_ids']);
+        if ($modelDatosGenerales->load(Yii::$app->request->post()) ) {
+            $modelDatosGenerales->servicios_basicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['servicios_basicos_ids']);
+            $modelDatosGenerales->ocupacion_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['ocupacion_ids']);
+            $modelDatosGenerales->fuente_ingresos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['fuente_ingresos_ids']);
+            $modelDatosGenerales->programas_sociales_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['programas_sociales_ids']);
+            $modelDatosGenerales->servicios_medicos_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['servicios_medicos_ids']);
+            $modelDatosGenerales->padece_enfermedades_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['padece_enfermedades_ids']);
+            $modelDatosGenerales->autocuidado_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['autocuidado_ids']);
+            $modelDatosGenerales->padece_discapacidades_ids = json_encode(Yii::$app->request->post( 'CedulasDatosGenerales' )['padece_discapacidades_ids']);
 
 
             $oldIDs = ArrayHelper::map($modelsGH, 'id', 'id');
@@ -147,19 +147,19 @@ class CedulasDatosGeneralesController extends Controller
 
 
             // validate all models
-            $valid = $model->validate();
+            $valid = $modelDatosGenerales->validate();
             $valid = Model::validateMultiple($modelsGH) && $valid;
 
             if ($valid) {
                 $transaction = \Yii::$app->db->beginTransaction();
                 try {
-                    if ($flag = $model->save(false)) {
+                    if ($flag = $modelDatosGenerales->save(false)) {
                         if (! empty($deletedIDs)) {
                             CedulasDatosGeneralesHijos::deleteAll(['id' => $deletedIDs]);
                         }
-                        foreach ($modelsGH as $modelGH) {
-                            $modelGH->cedula_datos_generales_id = $model->id;
-                            if (! ($flag = $modelGH->save(false))) {
+                        foreach ($modelsGH as $modelDatosGeneralesGH) {
+                            $modelDatosGeneralesGH->cedula_datos_generales_id = $modelDatosGenerales->id;
+                            if (! ($flag = $modelDatosGeneralesGH->save(false))) {
                                 $transaction->rollBack();
                                 break;
                             }
@@ -167,28 +167,28 @@ class CedulasDatosGeneralesController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
-                        return $this->redirect(['update', 'id' => $model->id]);
+                        return $this->redirect(['update', 'id' => $modelDatosGenerales->id]);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();
                 }
             }
-            $model->save();
-            return $this->redirect(['update', 'id' => $model->id]);
-            //return $this->redirect(['view', 'id' => $model->id]);
+            $modelDatosGenerales->save();
+            return $this->redirect(['update', 'id' => $modelDatosGenerales->id]);
+            //return $this->redirect(['view', 'id' => $modelDatosGenerales->id]);
         }
 
-        $model->servicios_basicos_ids = json_decode($model->servicios_basicos_ids);
-        $model->ocupacion_ids = json_decode($model->ocupacion_ids);
-        $model->fuente_ingresos_ids = json_decode($model->fuente_ingresos_ids);
-        $model->programas_sociales_ids = json_decode($model->programas_sociales_ids);
-        $model->servicios_medicos_ids = json_decode($model->servicios_medicos_ids);
-        $model->padece_enfermedades_ids = json_decode($model->padece_enfermedades_ids);
-        $model->autocuidado_ids = json_decode($model->autocuidado_ids);
-        $model->padece_discapacidades_ids = json_decode($model->padece_discapacidades_ids);
+        $modelDatosGenerales->servicios_basicos_ids = json_decode($modelDatosGenerales->servicios_basicos_ids);
+        $modelDatosGenerales->ocupacion_ids = json_decode($modelDatosGenerales->ocupacion_ids);
+        $modelDatosGenerales->fuente_ingresos_ids = json_decode($modelDatosGenerales->fuente_ingresos_ids);
+        $modelDatosGenerales->programas_sociales_ids = json_decode($modelDatosGenerales->programas_sociales_ids);
+        $modelDatosGenerales->servicios_medicos_ids = json_decode($modelDatosGenerales->servicios_medicos_ids);
+        $modelDatosGenerales->padece_enfermedades_ids = json_decode($modelDatosGenerales->padece_enfermedades_ids);
+        $modelDatosGenerales->autocuidado_ids = json_decode($modelDatosGenerales->autocuidado_ids);
+        $modelDatosGenerales->padece_discapacidades_ids = json_decode($modelDatosGenerales->padece_discapacidades_ids);
 
         return $this->render('update', [
-            'model' => $model,
+            'modelDatosGenerales' => $modelDatosGenerales,
             'modelsGH' => (empty($modelsGH)) ? [new CedulasDatosGeneralesHijos()] : $modelsGH,
             'modelCedula' => $modelCedula,
         ]);
@@ -217,8 +217,8 @@ class CedulasDatosGeneralesController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = CedulasDatosGenerales::findOne($id)) !== null) {
-            return $model;
+        if (($modelDatosGenerales = CedulasDatosGenerales::findOne($id)) !== null) {
+            return $modelDatosGenerales;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');

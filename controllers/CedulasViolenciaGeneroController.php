@@ -85,30 +85,30 @@ class CedulasViolenciaGeneroController extends Controller
         $valor_cedula_temporal = 1;
         $cedula = Cedulas::find()->where(['id' => $valor_cedula_temporal])->one();
 
-        $model = new CedulasViolenciaGenero();
+        $modelViolenciaGenero = new CedulasViolenciaGenero();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $model->tipo_violencia_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['tipo_violencia_ids']);
-            $model->tipo_modalidad_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['tipo_modalidad_ids']);
-            $model->sintomatologia_emocional_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['sintomatologia_emocional_ids']);
-            $model->sintomatologia_fisica_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['sintomatologia_fisica_ids']);
-            $model->creencias_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['creencias_ids']);
-            $model->factores_psicosociales_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['factores_psicosociales_ids']);
-            $model->relacion_pareja_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['relacion_pareja_ids']);
-            $model->relato_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['relato_ids']);
-            $model->relaciones_sociales_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['relaciones_sociales_ids']);
-            $model->tipo_demanda_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['tipo_demanda_ids']);
+        if ($modelViolenciaGenero->load(Yii::$app->request->post()) && $modelViolenciaGenero->save()) {
+            $modelViolenciaGenero->tipo_violencia_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['tipo_violencia_ids']);
+            $modelViolenciaGenero->tipo_modalidad_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['tipo_modalidad_ids']);
+            $modelViolenciaGenero->sintomatologia_emocional_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['sintomatologia_emocional_ids']);
+            $modelViolenciaGenero->sintomatologia_fisica_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['sintomatologia_fisica_ids']);
+            $modelViolenciaGenero->creencias_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['creencias_ids']);
+            $modelViolenciaGenero->factores_psicosociales_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['factores_psicosociales_ids']);
+            $modelViolenciaGenero->relacion_pareja_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['relacion_pareja_ids']);
+            $modelViolenciaGenero->relato_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['relato_ids']);
+            $modelViolenciaGenero->relaciones_sociales_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['relaciones_sociales_ids']);
+            $modelViolenciaGenero->tipo_demanda_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['tipo_demanda_ids']);
 
-            $model->save();
+            $modelViolenciaGenero->save();
 
 
-            return $this->redirect(['update', 'id' => $model->id]);
+            return $this->redirect(['update', 'id' => $modelViolenciaGenero->id]);
 
-            //return $this->redirect(['view', 'id' => $model->id]);
+            //return $this->redirect(['view', 'id' => $modelViolenciaGenero->id]);
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'modelViolenciaGenero' => $modelViolenciaGenero,
             'modelsGR'=> (empty($modelsGR)) ? [new CedulasViolenciaGeneroRuta()] : $modelsGR,
             'modelCedula' => $cedula,
         ]);
@@ -123,22 +123,22 @@ class CedulasViolenciaGeneroController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-        $modelCedula = Cedulas::find()->where(['id' => $model->cedula_id])->one();
+        $modelViolenciaGenero = $this->findModel($id);
+        $modelCedula = Cedulas::find()->where(['id' => $modelViolenciaGenero->cedula_id])->one();
 
-        $modelsGR = $model->cedulasViolenciaGeneroRutas;
+        $modelsGR = $modelViolenciaGenero->cedulasViolenciaGeneroRutas;
 
-        if ($model->load(Yii::$app->request->post()) ) {
-            $model->tipo_violencia_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['tipo_violencia_ids']);
-            $model->tipo_modalidad_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['tipo_modalidad_ids']);
-            $model->sintomatologia_emocional_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['sintomatologia_emocional_ids']);
-            $model->sintomatologia_fisica_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['sintomatologia_fisica_ids']);
-            $model->creencias_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['creencias_ids']);
-            $model->factores_psicosociales_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['factores_psicosociales_ids']);
-            $model->relacion_pareja_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['relacion_pareja_ids']);
-            $model->relato_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['relato_ids']);
-            $model->relaciones_sociales_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['relaciones_sociales_ids']);
-            $model->tipo_demanda_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['tipo_demanda_ids']);
+        if ($modelViolenciaGenero->load(Yii::$app->request->post()) ) {
+            $modelViolenciaGenero->tipo_violencia_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['tipo_violencia_ids']);
+            $modelViolenciaGenero->tipo_modalidad_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['tipo_modalidad_ids']);
+            $modelViolenciaGenero->sintomatologia_emocional_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['sintomatologia_emocional_ids']);
+            $modelViolenciaGenero->sintomatologia_fisica_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['sintomatologia_fisica_ids']);
+            $modelViolenciaGenero->creencias_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['creencias_ids']);
+            $modelViolenciaGenero->factores_psicosociales_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['factores_psicosociales_ids']);
+            $modelViolenciaGenero->relacion_pareja_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['relacion_pareja_ids']);
+            $modelViolenciaGenero->relato_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['relato_ids']);
+            $modelViolenciaGenero->relaciones_sociales_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['relaciones_sociales_ids']);
+            $modelViolenciaGenero->tipo_demanda_ids = json_encode(Yii::$app->request->post( 'CedulasViolenciaGenero' )['tipo_demanda_ids']);
 
             $oldIDs = ArrayHelper::map($modelsGR, 'id', 'id');
             $modelsGR = Model::createMultiple(CedulasViolenciaGeneroRuta::classname(), $modelsGR);
@@ -147,19 +147,19 @@ class CedulasViolenciaGeneroController extends Controller
 
 
             // validate all models
-            $valid = $model->validate();
+            $valid = $modelViolenciaGenero->validate();
             $valid = Model::validateMultiple($modelsGR) && $valid;
 
             if ($valid) {
                 $transaction = \Yii::$app->db->beginTransaction();
                 try {
-                    if ($flag = $model->save(false)) {
+                    if ($flag = $modelViolenciaGenero->save(false)) {
                         if (! empty($deletedIDs)) {
                             CedulasViolenciaGeneroRuta::deleteAll(['id' => $deletedIDs]);
                         }
-                        foreach ($modelsGR as $modelGR) {
-                            $modelGR->cedulas_violencia_genero_id = $model->id;
-                            if (! ($flag = $modelGR->save(false))) {
+                        foreach ($modelsGR as $modelViolenciaGeneroGR) {
+                            $modelViolenciaGeneroGR->cedulas_violencia_genero_id = $modelViolenciaGenero->id;
+                            if (! ($flag = $modelViolenciaGeneroGR->save(false))) {
                                 $transaction->rollBack();
                                 break;
                             }
@@ -167,30 +167,30 @@ class CedulasViolenciaGeneroController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
-                        return $this->redirect(['update', 'id' => $model->id]);
+                        return $this->redirect(['update', 'id' => $modelViolenciaGenero->id]);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();
                 }
             }
-            $model->save();
-            return $this->redirect(['update', 'id' => $model->id]);
-            //return $this->redirect(['view', 'id' => $model->id]);
+            $modelViolenciaGenero->save();
+            return $this->redirect(['update', 'id' => $modelViolenciaGenero->id]);
+            //return $this->redirect(['view', 'id' => $modelViolenciaGenero->id]);
         }
 
-        $model->tipo_violencia_ids = json_decode($model->tipo_violencia_ids);
-        $model->tipo_modalidad_ids = json_decode($model->tipo_modalidad_ids);
-        $model->sintomatologia_emocional_ids = json_decode($model->sintomatologia_emocional_ids);
-        $model->sintomatologia_fisica_ids = json_decode($model->sintomatologia_fisica_ids);
-        $model->creencias_ids = json_decode($model->creencias_ids);
-        $model->factores_psicosociales_ids = json_decode($model->factores_psicosociales_ids);
-        $model->relacion_pareja_ids = json_decode($model->relacion_pareja_ids);
-        $model->relato_ids = json_decode($model->relato_ids);
-        $model->relaciones_sociales_ids = json_decode($model->relaciones_sociales_ids);
-        $model->tipo_demanda_ids = json_decode($model->tipo_demanda_ids);
+        $modelViolenciaGenero->tipo_violencia_ids = json_decode($modelViolenciaGenero->tipo_violencia_ids);
+        $modelViolenciaGenero->tipo_modalidad_ids = json_decode($modelViolenciaGenero->tipo_modalidad_ids);
+        $modelViolenciaGenero->sintomatologia_emocional_ids = json_decode($modelViolenciaGenero->sintomatologia_emocional_ids);
+        $modelViolenciaGenero->sintomatologia_fisica_ids = json_decode($modelViolenciaGenero->sintomatologia_fisica_ids);
+        $modelViolenciaGenero->creencias_ids = json_decode($modelViolenciaGenero->creencias_ids);
+        $modelViolenciaGenero->factores_psicosociales_ids = json_decode($modelViolenciaGenero->factores_psicosociales_ids);
+        $modelViolenciaGenero->relacion_pareja_ids = json_decode($modelViolenciaGenero->relacion_pareja_ids);
+        $modelViolenciaGenero->relato_ids = json_decode($modelViolenciaGenero->relato_ids);
+        $modelViolenciaGenero->relaciones_sociales_ids = json_decode($modelViolenciaGenero->relaciones_sociales_ids);
+        $modelViolenciaGenero->tipo_demanda_ids = json_decode($modelViolenciaGenero->tipo_demanda_ids);
 
         return $this->render('update', [
-            'model' => $model,
+            'modelViolenciaGenero' => $modelViolenciaGenero,
             'modelsGR' => (empty($modelsGR)) ? [new CedulasViolenciaGeneroRuta()] : $modelsGR,
             'modelCedula' => $modelCedula,
         ]);
@@ -219,8 +219,8 @@ class CedulasViolenciaGeneroController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = CedulasViolenciaGenero::findOne($id)) !== null) {
-            return $model;
+        if (($modelViolenciaGenero = CedulasViolenciaGenero::findOne($id)) !== null) {
+            return $modelViolenciaGenero;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
