@@ -33,14 +33,21 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     <div class="row">
         <div class="col-md-5">
+
+            <?php $lista = ArrayHelper::map(\app\models\CencuestaCalificaciones::find()->all(), 'id', 'calificacion');
+            echo $form->field($model, 'atencion_correcta_id')->dropDownList($lista, ['prompt' => '[Selecciona]'])->label('Calificación ...');
+            ?>
+
+
             <?php
+            /*
             echo $form->field($model, 'atencion_correcta_id')->widget(Select2::classname(), [
                 'data' => ArrayHelper::map(\app\models\CencuestaCalificaciones::find()->all(), 'id', 'calificacion'),
                 'options' => ['placeholder' => 'Calificación ...'],
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
-            ])->label('¿Cómo califica la atención brindada por la ejecutiva telefónica?');            ?>
+            ])->label('¿Cómo califica la atención brindada por la ejecutiva telefónica?');       */     ?>
         </div>
         <div class="col-md-1">¿Por qué?</div>
         <div class="col-md-6">
@@ -137,7 +144,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                         <?php $lista = ArrayHelper::map(\app\models\Cinstituciones::find()->all(), 'id', function($model) {
                                             return $model['institucion'].' > '.$model['institucion_area'];
                                         });
-                                        echo $form->field($modelTD, "[{$i}]institucion_id")->dropDownList($lista, ['prompt' => '[Selecciona]'])->label(false);
+                                        echo $form->field($modelTD, "[{$i}]institucion_id")->dropDownList($lista, ['prompt' => '[Selecciona]'])->label('Nombre de la dependencia o institución');
                                         ?>
                                         <?php
                                         /*
