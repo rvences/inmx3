@@ -30,7 +30,7 @@ class EncuestaTelefonicaController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'update', 'delete'],
+                        'actions' => ['index', 'update','delete'],
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
                             return User::isAdminTelefonico(Yii::$app->user->identity->id)  ;

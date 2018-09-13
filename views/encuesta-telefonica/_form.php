@@ -133,17 +133,29 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                 ?>
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <?php
-                                        echo $form->field($modelTD,"[{$i}]institucion_id")->widget(Select2::classname(), [
-                                            'data' => ArrayHelper::map(\app\models\Cinstituciones::find()->all(), 'id', function($model) {
-                                                return $model['institucion'].' > '.$model['institucion_area'];
-                                            }),
-                                            'options' => ['placeholder' => 'Institución ...'],
-                                            'pluginOptions' => [
-                                                'allowClear' => true
-                                            ],
-                                        ])->label('Nombre de la Dependencia y/o institución');
+
+                                        <?php $lista = ArrayHelper::map(\app\models\Cinstituciones::find()->all(), 'id', function($model) {
+                                            return $model['institucion'].' > '.$model['institucion_area'];
+                                        });
+                                        echo $form->field($modelTD, "[{$i}]institucion_id")->dropDownList($lista, ['prompt' => '[Selecciona]'])->label(false);
                                         ?>
+                                        <?php
+                                        /*
+                                         <?php
+            echo $form->field($modelIdentificacion,'institucion_id')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(\app\models\Cinstituciones::find()->all(), 'id', function($model) {
+                    return $model['institucion'].' > '.$model['institucion_area'];
+                }),
+                'options' => ['placeholder' => 'Institución ...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ])->label(false);
+            ?>
+                                         */
+                                        ?>
+
+
 
                                     </div>
                                     <div class="col-md-4">
