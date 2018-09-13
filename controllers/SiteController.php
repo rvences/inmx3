@@ -66,6 +66,8 @@ class SiteController extends Controller
     {
         if (User::isUserTelefonico(Yii::$app->user->identity->id) ) {
             return $this->redirect(['cedulas-identificaciones/create']);
+        }elseif ( User::isAdminTelefonico(Yii::$app->user->identity->id) ) {
+            return $this->redirect(['encuesta-telefonica/index']);
         }elseif ( User::isUserPresencial(Yii::$app->user->identity->id) ) {
             return $this->redirect(['cedulas-presenciales/create']);
         }
@@ -89,6 +91,8 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             if (User::isUserTelefonico(Yii::$app->user->identity->id) ) {
                 return $this->redirect(['cedulas-identificaciones/create']);
+            }elseif ( User::isAdminTelefonico(Yii::$app->user->identity->id) ) {
+                return $this->redirect(['encuesta-telefonica/index']);
             }elseif ( User::isUserPresencial(Yii::$app->user->identity->id) ) {
                 return $this->redirect(['cedulas-presenciales/create']);
             }
@@ -185,13 +189,26 @@ class SiteController extends Controller
         if (empty($model)) {
             $user = new User();
             $user->tipo_usuario = 'TELEFONICO';
-            $user->nombre = 'Alina García';
+            $user->nombre = 'Captura Telefonico';
             $user->username = 'telefonico';
             $user->email = 'telefonico@nibira.com';
             $user->setPassword('telefonico');
             $user->generateAuthKey();
             if ($user->save()) {
                 echo 'Generado Telefónico';
+            }
+        }
+        $model = User::find()->where(['username' => 'admintel'])->one();
+        if (empty($model)) {
+            $user = new User();
+            $user->tipo_usuario = 'ADMINTEL';
+            $user->nombre = 'Alina García';
+            $user->username = 'admintel';
+            $user->email = 'admintel@nibira.com';
+            $user->setPassword('admintel');
+            $user->generateAuthKey();
+            if ($user->save()) {
+                echo 'Generado Administrador Telefónico';
             }
         }
     }

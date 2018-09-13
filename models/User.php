@@ -286,4 +286,14 @@ class User extends ActiveRecord implements IdentityInterface
         }
     }
 
+    public static function isAdminTelefonico($id)
+    {
+        if (User::findOne(['id' => $id, 'status' => '10', 'tipo_usuario' => 'ADMINTEL'])){
+            return true;
+        } else {
+
+            return false;
+        }
+    }
+
 }

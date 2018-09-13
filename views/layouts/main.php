@@ -9,6 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -19,21 +20,22 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="<?=Url::home();?>favicon.ico" type="image/x-icon">
+    <link rel="icon" href="<?=Url::home();?>favicon.ico" type="image/x-icon">
 
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <body>
+
 <?php $this->beginBody() ?>
 
 <div class="wrap">
 
     <?php
     NavBar::begin([
-        'brandLabel' => '<img src="images/logo.jpg" class="pull-left"/> ' . Yii::$app->name,
+        'brandLabel' => '<img src="' . Url::home() . 'images/logo.jpg" class="pull-left"/> ' . Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-default navbar-fixed-top',
@@ -51,6 +53,15 @@ AppAsset::register($this);
                     'linkOptions' => ['data-method' => 'post']],
             )],
             ];
+    } elseif (\app\models\User::isAdminTelefonico(Yii::$app->user->identity->id)) {
+        $menuItems = [
+            ['label' => 'Encuesta Telefónica', 'url' => ['/encuesta-telefonica/index'],],
+            ['label' => 'Personal', 'items'=> array(
+                ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                    'url' => ['/site/logout'],
+                    'linkOptions' => ['data-method' => 'post']],
+            )],
+            ];
     } elseif (\app\models\User::isUserPresencial(Yii::$app->user->identity->id)) {
         $menuItems = [
             ['label' => 'Cédula Presencial', 'url' => ['/cedula/index'],],
@@ -59,9 +70,7 @@ AppAsset::register($this);
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']],
             )],
-
-            ];
-
+        ];
     }
 
 

@@ -74,6 +74,7 @@ use yii\db\ActiveRecord;
  * @property User $createdBy
  * @property Czonas $zona
  * @property Cedulas $cedula
+ * @property EncuestaTelefonica[] $encuestaTelefonicas
  */
 class CedulasIdentificaciones extends \yii\db\ActiveRecord
 {
@@ -91,8 +92,8 @@ class CedulasIdentificaciones extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at', 'created_by', 'updated_at', 'updated_by', 'hora_termino', 'hora_inicio',
-               ], 'safe'],
+            [['created_at', 'created_by', 'updated_at', 'updated_by', 'hora_termino', 'hora_inicio',], 'safe'],
+            [['tel_llamada', 'tipo_llamada_id'], 'required'],
             //[['tipificacion_ids', 'coorporacion_ids', 'tipoasesoria_ids', 'zona_riesgo_ids', 'horario_riesgo_ids'], 'string'],
 
             [['cedula_id', 'created_at', 'fecha_ult_incidente', 'tipo_llamada_id', 'tipo_emergencia_id', 'institucion_id', 'sexo_id', 'colonia_id', 'entidad_id', 'zona_id', 'congregacion_id', 'religion_id', 'nacionalidad_id', 'nivel_riesgo_id', 'created_by', 'relacion_parentezco_id', 'updated_at', 'updated_by'], 'integer'],
@@ -333,5 +334,13 @@ class CedulasIdentificaciones extends \yii\db\ActiveRecord
     public function getCedula()
     {
         return $this->hasOne(Cedulas::className(), ['id' => 'cedula_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEncuestaTelefonicas()
+    {
+        return $this->hasMany(EncuestaTelefonica::className(), ['cedula_identificaciones_id' => 'id']);
     }
 }

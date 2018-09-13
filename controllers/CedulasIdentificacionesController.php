@@ -8,6 +8,7 @@ use app\models\CedulasDatosGenerales;
 use app\models\CedulasDatosGeneralesHijos;
 use app\models\CedulasViolenciaGenero;
 use app\models\CedulasViolenciaGeneroRuta;
+use app\models\EncuestaTelefonica;
 use app\models\Model;
 use Yii;
 use app\models\CedulasIdentificaciones;
@@ -147,6 +148,10 @@ class CedulasIdentificacionesController extends Controller
             $modelDatosAgresor->indicador_riesgo_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['indicador_riesgo_ids']);
             $modelDatosAgresor->tipo_seguimiento_ids = json_encode(Yii::$app->request->post( 'CedulasDatosAgresor' )['tipo_seguimiento_ids']);
             $modelDatosAgresor->save(false);
+
+            $modelEncuestaTelefonica = new EncuestaTelefonica();
+            $modelEncuestaTelefonica->cedula_identificacion_id = $modelIdentificacion->id;
+            $modelEncuestaTelefonica->save(false);
 
             return $this->redirect(['update', 'id' => $modelIdentificacion->id]);
             //return $this->redirect(['view', 'id' => $modelIdentificacion->id]);

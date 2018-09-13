@@ -1250,8 +1250,21 @@ class m180825_013942_catalogo_datos_identificacion extends Migration
                 ['Presencial'],
             ));
 
+        $this->createTable('{{%cencuesta_calificaciones}}', [
+            'id' => $this->primaryKey(),
+            'calificacion' => $this->string(20)->notNull() . " COMMENT 'Calificaciones' ",
 
+        ], $tableOptions
+        );
 
+        $this->batchInsert('cencuesta_calificaciones',
+            array('calificacion'),
+            array(
+                ['EXCELENTE'],
+                ['BUENA'],
+                ['REGULAR'],
+                ['MALA'],
+            ));
     }
 
     /**
