@@ -55,8 +55,8 @@ class CedulasDatosGeneralesHijos extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'cedula_id' => 'Cedula ID',
-            'hijo_edad' => 'Hijo Edad',
-            'hijo_sexo_id' => 'Hijo Sexo ID',
+            'hijo_edad' => 'Edad del hijo',
+            'hijo_sexo_id' => 'Sexo del hijo',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
             'updated_at' => 'Updated At',

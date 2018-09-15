@@ -32,7 +32,7 @@ use yii\db\ActiveRecord;
  * @property string $lugar_nacimiento
  * @property int $religion_id
  * @property int $vivienda_id
- * @property int $servicios_basicos_ids
+ * @property string $servicios_basicos_ids
  * @property int $nivel_estudio_id
  * @property int $status_estudio_id
  * @property string $idioma

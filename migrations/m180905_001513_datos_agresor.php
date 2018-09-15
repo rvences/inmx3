@@ -41,7 +41,7 @@ class m180905_001513_datos_agresor extends Migration
             'lugar_nacimiento' => $this->string(100),
             'religion_id' => $this->integer(),
             'vivienda_id' => $this->integer(),
-            'servicios_basicos_ids' => $this->integer(),
+            'servicios_basicos_ids' => $this->string(100),
             'nivel_estudio_id' => $this->integer(),
             'status_estudio_id' => $this->integer(),
             'idioma' => $this->string(100),

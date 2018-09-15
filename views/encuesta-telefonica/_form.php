@@ -13,9 +13,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 <h1>Solo falta agregar dependencias y seguridad</h1>
 <div class="encuesta-telefonica-form">
 
-    <?php $form = ActiveForm::begin(['id' => 'dynamic-form']);
-    echo $form->errorSummary([$model]);
-    ?>
+
 
     <div class="row">
         <div class="col-md-5">
@@ -204,10 +202,5 @@ use wbraganca\dynamicform\DynamicFormWidget;
         </div>
     </div>
 
-
-
-
-
-    <?php ActiveForm::end(); ?>
 
 </div>
